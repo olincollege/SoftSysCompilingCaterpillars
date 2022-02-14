@@ -1,4 +1,4 @@
-# The Basics of Compilation
+# Comp-lexity
 
 Abitamim Bharmal, Grant Miner, Rishita Sarin
 
@@ -6,11 +6,11 @@ Abitamim Bharmal, Grant Miner, Rishita Sarin
 
 Our team is hoping to dig deeper into the inner workings of compilers by building the first building blocks of one. We will be focusing on a very small subset of commands within both a language and an instruction set. 
 
-To begin building understanding of compilers, we will attempt to execute the preprocessing and parsing stages of compilation. Together, we believe these will pose a considerable challenge. If we are more successful than expected, we may begin tackling the static checking stage of compilation.
+We will be attempting to make a lexical analyzer for a very limited subset of commands. We will be restricting our types to integers and our operations to simple arithmetic. We believe this will pose a sufficient challenge, and it has inherent room for stretch goals. 
 
 ## Learning Goals
 
-We have a basic understanding of the steps compilers take to get higher-level code down to machine code for execution. However, we do not have much insight into the mechanics by which each step is executed. Diving in deeper to the granularity of compilation will give us perspective to understand why our higher-level programs execute the way they do. 
+We have a basic understanding of the steps compilers take to get higher-level code down to machine code for execution. However, we do not have much insight into the mechanics by which each step is executed. Diving in deeper to the granularity of compilation will give us perspective to understand why our higher-level programs execute the way they do. This can also be a chance to build a jumping off point for future projects in this space.
 
 ## Preparation
 
@@ -18,5 +18,5 @@ We are still on the hunt for reliable resources to scaffold our learning and dev
 
 ## Getting Started
 
-To begin this project, we will need to do extensive research into the workings of lexers, syntactic analysis, and semantic analysis. [FIT in WHICH PERSON IS DOING WHICH THING]. We will synthesize our research into internal documentation for later reference. We will continue digging over the course of the project.
+To begin this project, we will need to do extensive research into the workings of lexers. To start off, we will all research the mechanics of lexers in a variety of resources. We will synthesize our research into internal documentation for later reference that could possibly be passed on as educational material for future iterations of this course.
 
