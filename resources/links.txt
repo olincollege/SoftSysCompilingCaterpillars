@@ -1,0 +1,10 @@
+https://cop3402fall20.github.io/lectures/03_toy_compiler.html - Lecture on how to make a toy compiler with explanation of all major steps
+https://www.cs.umd.edu/class/spring2017/cmsc430/slides/03-lexing-parsing.pdf Lexing and Parsing
+https://www.quora.com/What-is-the-difference-between-a-lexer-and-a-parser Lexing Vs Parsing
+https://dev.to/lefebvre/compilers-101---overview-and-lexer-3i0m More info on lexers
+
+https://web.stanford.edu/class/archive/cs/cs143/cs143.1156/handouts/parsing.pdf
+https://bytes.com/topic/c/insights/657086-how-parse-file-c
+
+LLVM tutorial:
+https://llvm.org/docs/tutorial/index.html
