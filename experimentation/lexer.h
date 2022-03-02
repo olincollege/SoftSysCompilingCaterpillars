@@ -8,10 +8,12 @@
 typedef struct S_token* T_token;
 
 struct S_token {
-    enum {NUMBER, OPERATOR, SEMICOLON, END} kind;
+    enum {VARIABLE, COMPARISON, NUMBER, OPERATOR, SEMICOLON, END} kind;
     union {
         int number;
-        char character;
+        char operation;
+        char comparison;
+        char variable;
     };
 };
 
@@ -23,5 +25,7 @@ T_token create_end_token();
 T_token create_semicolon_token();
 T_token create_number_token(char c);
 T_token create_operator_token(char c);
+T_token create_variable_token(char c);
+T_token create_comparison_token(char c);
 
 #endif
