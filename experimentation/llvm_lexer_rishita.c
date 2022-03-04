@@ -16,14 +16,15 @@ enum Token {
 char identifier_str[LENGTH];
 double num_val;
 
+
 int get_token() {
     memset(identifier_str, 0, LENGTH);
     int last_char = ' ';
 
-    while (isspace(last_char)) {
+    while (isspace(last_char)) { //if whitespace, lex next character
         last_char = getchar();
     }
-    if (isalpha(last_char)) {
+    if (isalpha(last_char)) { //if last_char is alphabet, add it to identifier_str array and move to next char
         int i = 0;
         identifier_str[i++] = last_char;
         while (isalnum(last_char = getchar())) {
@@ -37,7 +38,7 @@ int get_token() {
     }
 
     //doesn't work with multiple periods i.e. 1.234.533
-    if (isdigit(last_char) || last_char == '.') {
+    if (isdigit(last_char) || last_char == '.') { //if last_char is a number or a ., add it to num_str array and move to next char
         char num_str[LENGTH];
         int i = 0;
         do {
@@ -59,7 +60,7 @@ int get_token() {
         }
     }
 
-    if (last_char == EOF) {
+    if (last_char == EOF) { //if last_char is an end of file character, return EOF token
         return tok_eof;
     }
 
