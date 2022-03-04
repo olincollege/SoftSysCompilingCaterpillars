@@ -5,15 +5,18 @@
 
 #define LENGTH 255
 
-enum Token {
+
+enum tokenType {
     tok_eof = -1,
     tok_def = -2,
     tok_identifier = -3,
     tok_number = -5,
+    tok_operator = -6,
 };
 
 char identifier_str[LENGTH];
 double num_val;
+int op;
 
 int get_token() {
     memset(identifier_str, 0, LENGTH);
@@ -73,6 +76,8 @@ int main(int argc, char *argv[]) {
             puts(identifier_str);
         } else if (r == -5) {
             printf("%f \n", num_val);
+        } else {
+            printf("%d \n", r);
         }
     }
 }   
