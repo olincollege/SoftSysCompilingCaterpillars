@@ -45,5 +45,7 @@ Rishita - Lexer and Parser implementation of while loops
 Our goal is to complete all technical implementations of the compiler by Wednesday 3/9 and then spend the next two days documentating our work and hopefully submit this project by 3/11. 
 
 
-[ToDoist Link](https://todoist.com/app/project/2285969949)
-[Github Repo Link](https://github.com/olincollege/SoftSysCompilingCaterpillars)
+## [ToDoist Link](https://todoist.com/app/project/2285969949)
+
+## [Github Repo Link](https://github.com/olincollege/SoftSysCompilingCaterpillars)
+
