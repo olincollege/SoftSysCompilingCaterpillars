@@ -14,16 +14,16 @@ Our stretch goal is to develop if/else statement and while loop functionality to
 ###Overarching Team Learning Goal
 We have a basic understanding of the steps compilers take to get higher-level code down to machine code for execution. However, we do not have much insight into the mechanics by which each step is executed. Diving in deeper to the granularity of compilation will give us perspective to understand why our higher-level programs execute the way they do. We want to understand the architecture of lexers and parsers, and we want to explore how they interact with later stages in the process. We also hope to understand the high-level design decisions that go into creating a compiler.
 
-###Individual Learning Goals
+### Individual Learning Goals
 
-####Rishita
+#### Rishita
 In addition to the team goal, with this project I wanted to get more comfortable coding in C. For this broad goal, I decided to pursue two concrete paths: reading and writing C. There is value in being able to read code and understand its implementation. For this, I retyped and implemented a toy compiler walkthrough guide I was able to find online. As I typed the code, I also commented each file in order to better document my understanding of it. This work is pushed to the tutorials folder in this repo. There is also value in being able to write code from scratch. For this, I have taken upon the implementation of while loops in our compiler. There is a LLVM tutorial which explains the logic. However, there is minimal code and the code which is available is written in C++, so I have been working on translating this C++ code into C which has given me practice in writing C. 
 
 I also wish to continue to build my developer skills in terms of efficiently gathering useful resources. I have always shyed away from using Stack Overflow because it has felt quite daunting, thus I would find myself struggling for a long period of time instead of just using my resources to my advantage. With this project, I took initiative to find initial resources and was able to successfully utilize an implementation of the toy compiler which my team is using as a base to build off of. For the LLVM tutorial C++ to C translation, I have started to use Stack Overflow and similar resources to help with syntax and related commands. This has allowed me to grow more comfortable with this resource and learn how to search efficiently to get useful results.  
 
-####Grant
+#### Grant
 
-####Abitamim
+#### Abitamim
 
 
 ## Getting Started: Resources
