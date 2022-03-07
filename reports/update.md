@@ -29,6 +29,8 @@ I also wish to continue to build my developer skills in terms of efficiently gat
 ## Getting Started: Resources
 
 We have found several very useful resources on the workings of compilers, specifically on the lexer and parser stages. Our resources are located in [resources](../resources/links.txt).
-We began this project by doing extensive research into the workings of compilers, and we also made progress working through the tutorials we found. We are currently redelegating tasks, with the hope of having two teams working on conditionals and loops. Before we can split tasks, we are meeting to determine how the parsing and linking algorithm will need to change with new compiler mechanics (right now it is only configured to work on numbers, operators, semicolons, and EOFs).
+We began this project by doing extensive research into the workings of compilers, and we have completed working through the tutorials we found. 
 
 ## Next Steps
+
+We are currently redelegating tasks, with the hope of having two teams working on conditionals and loops. Before we can split tasks, we are meeting to determine how the parsing and linking algorithm will need to change with new compiler mechanics (right now it is only configured to work on numbers, operators, semicolons, and EOFs).
