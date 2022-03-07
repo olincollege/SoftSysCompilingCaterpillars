@@ -36,7 +36,10 @@ We began this project by doing extensive research into the workings of compilers
 We have a working compiler which can perform arithmetic and can assign numerical values to variables in the lexer and parser stages. The next steps as split by each team member as shown below. 
 
 Abitamim - Complete translating LLVM tutorial parser from C++ to C. This is a more advanced parser as compared to the one we have now which we built from the toy compiler tutorial which will allow us to intgreate while loops and if/else statements into our compiler. 
+
 Grant - Lexer and Parser implementation of if/else statements
+
 Rishita - Lexer and Parser implementation of while loops 
+
 
 Our goal is to complete all technical implementations of the compiler by Wednesday 3/9 and then spend the next two days documentating our work and hopefully submit this project by 3/11. 
