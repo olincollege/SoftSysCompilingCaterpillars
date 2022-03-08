@@ -29,11 +29,12 @@ I had originally hoped to make it to the code generation stage of compilation, b
 #### Abitamim
 My goals were to become more familiar with memory management and low-level
 programming. 
-I learned more about variable scoping, such as the fact that declaring a
-variable inside a loop or if statement doesn't necessarily clear it, like would
+I became more experienced with memory allocation, since a variable declared in a
+function could be reallocated to the exact same spot when the function is called
+again, unlike what is
 be expected in python or other higher level languages. This fulfills the goal
-regarding memory management at some level, because I have to learn where and how
-much memory to allocate. I learned this while debugging my translation of the
+regarding memory management at some level, because I have to consider and
+account for memory at any location. I learned this while debugging my translation of the
 C++ version of the lexer.  
 Now, I am learning
 more about structs and using them in place of classes in the parser. A number of
