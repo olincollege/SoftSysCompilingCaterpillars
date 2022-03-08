@@ -24,6 +24,15 @@ I also wish to continue to build my developer skills in terms of efficiently gat
 #### Grant
 
 #### Abitamim
+My goals were to become more familiar with memory management and low-level
+programming. 
+I learned more about variable scoping, such as the fact that declaring a
+variable inside a loop or if statement doesn't necessarily clear it, like would
+be expected in python or other higher level languages. I learned this while
+debugging my translation of the C++ version of the lexer. Now, I am learning
+more about structs and using them in place of classes in the parser. A number of
+different structs, along with unions, can be used in place of "nodes" to create
+a AST.
 
 
 ## Getting Started: Resources
@@ -35,7 +44,8 @@ We began this project by doing extensive research into the workings of compilers
 
 We have a working compiler which can perform arithmetic and can assign numerical values to variables in the lexer and parser stages. The next steps as split by each team member as shown below. 
 
-Abitamim - Complete translating LLVM tutorial parser from C++ to C. This is a more advanced parser as compared to the one we have now which we built from the toy compiler tutorial which will allow us to intgreate while loops and if/else statements into our compiler. 
+Abitamim - Build a parser based on the toy compiler but expanded to allow for
+variable assignment, multi-character tokens, and conditionals and loops. 
 
 Grant - Lexer and Parser implementation of if/else statements
 
