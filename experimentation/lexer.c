@@ -57,8 +57,14 @@ T_token lex() {
             case '*':
             case '/':
                 return create_operator_token(c);
+            case '<':
+            case '>':
+            case '=':
+            case '~':
+                return create_comparison_token(c);
             default:
-                lexer_error();
+                return create_variable_token(c);
+                // lexer_error();
                 break;
         }
     }
