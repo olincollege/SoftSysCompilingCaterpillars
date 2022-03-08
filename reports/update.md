@@ -31,11 +31,15 @@ My goals were to become more familiar with memory management and low-level
 programming. 
 I learned more about variable scoping, such as the fact that declaring a
 variable inside a loop or if statement doesn't necessarily clear it, like would
-be expected in python or other higher level languages. I learned this while
-debugging my translation of the C++ version of the lexer. Now, I am learning
+be expected in python or other higher level languages. This fulfills the goal
+regarding memory management at some level, because I have to learn where and how
+much memory to allocate. I learned this while debugging my translation of the
+C++ version of the lexer.  
+Now, I am learning
 more about structs and using them in place of classes in the parser. A number of
 different structs, along with unions, can be used in place of "nodes" to create
-a AST.
+a AST. This will help me in the future creating more complicated yet well
+divided programs with the help of structs and unions to simulate some OO elements.
 
 
 ## Getting Started: Resources
