@@ -5,14 +5,6 @@
 
 #include "lexer.h"
 
-enum tokenType {
-    tok_eof = -1,
-    tok_def = -2,
-    tok_identifier = -3,
-    tok_number = -5,
-    tok_operator = -6,
-};
-
 char identifier_str[LENGTH];
 double num_val;
 int op;
@@ -32,15 +24,11 @@ int get_token() {
             identifier_str[i++] = last_char;
         }
         identifier_str[i] = '\0';
-        if (strcmp(identifier_str, "def")) {
-            return tok_def;
-        }
         return tok_identifier;
     }
 
     //doesn't work with multiple periods i.e. 1.234.533
     if (isdigit(last_char) || last_char == '.') {
-        // puts("num");
         char num_str[LENGTH];
         memset(num_str, 0, LENGTH);
         int i = 0;
@@ -60,7 +48,6 @@ int get_token() {
     }
 
     if (last_char == '#') {
-        // puts("comment");
         do {
             last_char = getchar();
         } while (last_char != EOF && last_char != '\n' && last_char != '\r');
@@ -77,6 +64,11 @@ int get_token() {
     int ascii_val = last_char;
     last_char = getchar();
     return ascii_val;
+}
+
+T_token create_end_token() {
+    T_token token = malloc(sizeof(T_token));
+    token.
 }
 
 int main(int argc, char *argv[]) {

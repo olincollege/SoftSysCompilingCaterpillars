@@ -54,8 +54,8 @@ T_statement parse_statement();
 T_expression parse_expression();
 
 T_statement_list create_statement_list(T_statement statement, T_statement_list statement_list);
-T_statement create_statement(T_expression expression);
-T_expression create_expression(T_token operand1, T_token operator, T_token operand2);
+// T_statement create_statement(T_expression expression);
+// T_expression create_expression(T_token operand1, T_token operator, T_token operand2);
 
 T_token get_lookahead();
 void next_token();
