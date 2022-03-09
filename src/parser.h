@@ -22,7 +22,7 @@ struct S_statement_list {
 };
 
 struct S_statement {
-    T_token var;
+    T_val var;
     T_expression expression;
 };
 
@@ -44,7 +44,7 @@ struct S_conditional {
 };
 
 struct S_expression {
-    T_token lhs;
+    T_val lhs;
     T_oper operator;
     T_expression rhs;
 };
