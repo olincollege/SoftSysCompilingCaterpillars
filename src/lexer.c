@@ -10,10 +10,17 @@ double num_val;
 int op;
 int last_char = ' ';
 
-int get_token() {
+T_token get_token() {
     memset(identifier_str, 0, LENGTH);
 
+    T_token token = create_single_char_token(last_char);
+    if (token) {
+        return token;
+    }
     while (isspace(last_char)) {
+        if (last_char == '\n') {
+            return create_nl_token();
+        }
         last_char = getchar();
     }
     if (isalpha(last_char)) {
@@ -24,7 +31,7 @@ int get_token() {
             identifier_str[i++] = last_char;
         }
         identifier_str[i] = '\0';
-        return tok_identifier;
+        return create_val_token(identifier_str);
     }
 
     //doesn't work with multiple periods i.e. 1.234.533
@@ -44,7 +51,7 @@ int get_token() {
             num_str[i] = '.';
         }
         num_val = strtod(num_str, 0);
-        return tok_number;
+        return create_number_token(num_val);;
     }
 
     if (last_char == '#') {
@@ -58,28 +65,100 @@ int get_token() {
     }
 
     if (last_char == EOF) {
-        return tok_eof;
+        return create_end_token();
     }
-    // puts("ascii");
-    int ascii_val = last_char;
+
+    while (isspace(last_char)) {
+        if (last_char == '\n') {
+            return create_nl_token();
+        }
+        last_char = getchar();
+    }
+
+    T_token token = create_single_char_token(last_char);
+    if (token) {
+        return token;
+    }
     last_char = getchar();
-    return ascii_val;
+}
+
+T_token create_single_char_token(char c) {
+    T_token token = malloc(sizeof(T_token));
+    switch (c) {
+        case '+':
+            token->type = OPER;
+            token->value.oper->type = ADD;
+            break;
+        case '-':
+            token->type = OPER;
+            token->value.oper->type = SUB;
+            break;
+        case '*':
+            token->type = OPER;
+            token->value.oper->type = MULT;
+            break;
+        case '/':
+            token->type = OPER;
+            token->value.oper->type = DIV;
+            break;
+        case '>':
+            token->type = OPER;
+            token->value.oper->type = GT;
+            break;
+        case '<':
+            token->type = OPER;
+            token->value.oper->type = LT;
+            break;
+        case '=':
+            token->type = OPER;
+            token->value.oper->type = EQ;
+            break;
+        case '!': //val1 ! val2 means val1 != val2
+            token->type = OPER;
+            token->value.oper->type = NEQ;
+        default:
+            return;
+    }
+    return token;
 }
 
 T_token create_end_token() {
     T_token token = malloc(sizeof(T_token));
-    token.
+    token->type = END;
+    return token;
+}
+T_token create_var_token(char* val) {
+    T_token token = malloc(sizeof(T_token));
+    token->type = VAL;
+    token->value.val->type = VAR;
+    token->value.val->value.var = malloc(sizeof(val));
+    strcpy(val, token->value.val->value.var);
+
+    return token;
+}
+T_token create_number_token(double n) {
+    T_token token = malloc(sizeof(T_token));
+    token->type = VAL;
+    token->value.val->type = NUM;
+    *token->value.val->value.var = n;
+
+    return token;
 }
 
-int main(int argc, char *argv[]) {
-    int r;
-    while ((r = get_token()) != -1) {
-        if (r == tok_identifier || r == tok_def) {
-            puts(identifier_str);
-        } else if (r == tok_number) {
-            printf("%f \n", num_val);
-        } else {
-            printf("%c \n", r);    
-        }
+T_token create_nl_token() {
+    T_token token = malloc(sizeof(T_token));
+    token->type = NL;
+    return token;
 }
-}   
+// int main(int argc, char *argv[]) {
+//     int r;
+//     while ((r = get_token()) != -1) {
+//         if (r == tok_identifier || r == tok_def) {
+//             puts(identifier_str);
+//         } else if (r == tok_number) {
+//             printf("%f \n", num_val);
+//         } else {
+//             printf("%c \n", r);    
+//         }
+// }
+// }   

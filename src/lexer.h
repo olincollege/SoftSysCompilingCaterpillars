@@ -18,10 +18,10 @@ struct S_token {
 };
 
 struct S_val {
-    enum {NUMBER, VAR} type;
+    enum {NUM, VAR} type;
     union {
         double *num;
-        char (*var)[LENGTH];
+        char *var;
     } value;
 };
 
@@ -33,7 +33,7 @@ struct S_oper {
 
 struct S_comp {
     enum {
-        EQ, LT, GT
+        EQ, LT, GT, NEQ
     } type;
 };
 
@@ -43,5 +43,6 @@ T_token create_number_token(double n);
 T_token create_operator_token(char c);
 T_token create_comp_token(char c);
 T_token create_nl_token();
+T_token create_single_char_token(char c);
 
 #endif
