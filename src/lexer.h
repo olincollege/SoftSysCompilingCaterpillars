@@ -14,7 +14,7 @@ struct S_token {
         T_val val;
         T_oper oper;
         T_comp comp;
-    };
+    } value;
 };
 
 struct S_val {
@@ -22,7 +22,7 @@ struct S_val {
     union {
         double *num;
         char (*var)[LENGTH];
-    };
+    } value;
 };
 
 struct S_oper {
@@ -42,8 +42,6 @@ T_token create_val_token(char* val);
 T_token create_number_token(double n);
 T_token create_operator_token(char c);
 T_token create_comp_token(char c);
-T_token create_nl_token(); 
-
-T_token get_token();
+T_token create_nl_token();
 
 #endif
