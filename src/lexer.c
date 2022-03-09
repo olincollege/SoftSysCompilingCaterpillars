@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "lexer.h"
 
 enum tokenType {
     tok_eof = -1,
