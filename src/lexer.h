@@ -38,7 +38,7 @@ struct S_comp {
 };
 
 T_token create_end_token();
-T_token create_val_token(char* val);
+T_token create_var_token(char* val);
 T_token create_number_token(double n);
 T_token create_operator_token(char c);
 T_token create_comp_token(char c);
