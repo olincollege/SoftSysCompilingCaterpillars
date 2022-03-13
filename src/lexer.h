@@ -61,5 +61,6 @@ T_token create_if_token(char* val);
 T_token create_number_token(double n);
 T_token create_nl_token();
 T_token create_single_char_token(char c);
+T_token get_token();
 
 #endif

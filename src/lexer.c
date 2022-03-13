@@ -11,13 +11,15 @@ int op;
 int last_char = ' ';
 
 T_token get_token() {
+    // puts("inside get token");
     memset(identifier_str, 0, LENGTH);
-    while (isspace(last_char) || last_char == '(' || last_char == ')' || last_char == '=') {
+    while (isspace(last_char) || last_char == '(' || last_char == ')') {
         // puts("space");
         if (last_char == '\n') {
             last_char = getchar();
             return create_nl_token();
         }
+        // puts("getchar");
         last_char = getchar();
     }
     // puts("first");
@@ -145,7 +147,7 @@ T_token create_single_char_token(char c) {
             token->value.comp = comp;
             free_token(oper);
             break;
-        case '~':
+        case '=':
             token->type = COMP;
             comp->type = EQ;
             token->value.comp = comp;
@@ -221,25 +223,25 @@ T_token create_nl_token() {
     return token;
 }
 
-int main(int argc, char *argv[]) {
-    T_token r;
-    while ((r = get_token())->type != END) {
-        if (r->type == VAL) {
-            if (r->value.val->type == NUM) {
-                printf("type: %d type: %d  value: %f \n", r->type, r->value.val->type, *r->value.val->value.num);
-            } else {
-                printf("type: %d type: %d value: %s \n", r->type, r->value.val->type, r->value.val->value.var); 
-            }
-        } else if (r->type == NL) {
-            puts("NL");
-        } else if (r->type == COMP) {
-            printf("type: %d  value: %d \n", r->type, r->value.comp->type);
-        } else if (r->type == OPER) {
-            printf("type: %d  value: %d \n", r->type, r->value.oper->type);
-        } else if (r->type == T_IF) {
-            printf("if type: %d \n", r->value.t_if->type);
-        } else if (r->type == T_WHILE) {
-            printf("while type: %d \n", r->value.t_while->type);
-        }
-}
-}   
+// int main(int argc, char *argv[]) {
+//     T_token r;
+//     while ((r = get_token())->type != END) {
+//         if (r->type == VAL) {
+//             if (r->value.val->type == NUM) {
+//                 printf("type: %d type: %d  value: %f \n", r->type, r->value.val->type, *r->value.val->value.num);
+//             } else {
+//                 printf("type: %d type: %d value: %s \n", r->type, r->value.val->type, r->value.val->value.var); 
+//             }
+//         } else if (r->type == NL) {
+//             puts("NL");
+//         } else if (r->type == COMP) {
+//             printf("type: %d  value: %d \n", r->type, r->value.comp->type);
+//         } else if (r->type == OPER) {
+//             printf("type: %d  value: %d \n", r->type, r->value.oper->type);
+//         } else if (r->type == T_IF) {
+//             printf("if type: %d \n", r->value.t_if->type);
+//         } else if (r->type == T_WHILE) {
+//             printf("while type: %d \n", r->value.t_while->type);
+//         }
+// }
+// }   
