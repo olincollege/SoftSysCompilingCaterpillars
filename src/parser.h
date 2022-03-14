@@ -56,7 +56,7 @@ T_expression parse_expression();
 T_token get_token();
 
 T_statement_list create_statement_list(T_statement statement, T_statement_list statement_list);
-T_statement create_statement(T_expression expression);
+T_statement create_statement(T_val lhs, T_expression rhs);
 T_expression create_expression(T_val lhs, T_oper operator, T_expression rhs);
 
 T_token get_lookahead();

@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "deep_copy.c"
 
 T_token lookahead_token;
 
@@ -22,15 +23,59 @@ void next_token() {
 //     }
 // }
 
-// T_statement parse_statement() {
-//     T_expression expression = parse_expression();
-//     T_token semicolon = get_lookahead();
-//     if (NL != semicolon -> type) {
-//         parser_error();
-//     }
-//     next_token();
-//     return create_statement(expression);
+T_while parse_while() {
+    T_token while_token = get_lookahead();
+    if (T_WHILE != while_token -> type || WHILE != while_token -> value.t_while -> type)
+        parse_error();
+    next_token();
+    
+}
+
+T_conditional parse_conditional() {
+    T_token token = get_lookahead();
+    if (VAL != token -> type) parse_error();
+    T_expression lhs = parse_expression();
+    token = get_lookahead();
+    if (COMP != token -> type) parse_error();
+    T_comp comparator = token -> value.comp -> type;
+    next_token();
+    T_expression rhs = parse_expression();
+    return create_conditional(lhs, comparator, rhs);
+}
+
+T_conditional create_conditional(T_expression lhs, T_oper operator, T_expression rhs) {
+    T_conditional new_conditional = malloc(sizeof(*new_conditional));
+    
+}
+
+T_statement parse_statement() {
+    T_token token = get_lookahead();
+    if (VAL != token -> type || VAR != token -> value.val -> type) parser_error();
+    next_token();
+    T_token eq = get_lookahead();
+    if (COMP != token -> type || EQ != token -> value.comp -> type) parser_error();
+    next_token();
+    T_expression rhs = parse_expression();
+    return create_statement(*(token -> value.val -> value.var), rhs);
+}
+
+// T_statement_list create_statement_list(T_statement statement, T_statement_list statement_list) {
+//     T_statement_list new_list = malloc(sizeof(*new_list));
+//     new_list->statement = statement;
+//     new_list->statement_list = statement_list;
+//     return new_list;
 // }
+
+T_statement create_statement(T_val lhs, T_expression rhs) {
+    T_statement new_statement = malloc(sizeof(*new_statement));
+    //deep copy lhs
+    new_statement -> var = deep_copy_val (lhs);
+    //since rhs expression is already heap-allocated, can directly assign reference
+    new_statement -> expression = rhs;
+    return new_statement;
+}
+
+
 
 T_expression parse_expression() {
     T_token lhs_token = get_lookahead();
@@ -55,24 +100,11 @@ T_expression parse_expression() {
     return create_expression(lhs, operator, rhs);
 }
 
-// T_statement_list create_statement_list(T_statement statement, T_statement_list statement_list) {
-//     T_statement_list new_list = malloc(sizeof(*new_list));
-//     new_list->statement = statement;
-//     new_list->statement_list = statement_list;
-//     return new_list;
-// }
-
-// T_statement create_statement(T_expression expression) {
-//     T_statement new_statement = malloc(sizeof(*new_statement));
-//     new_statement->expression = expression;
-//     return new_statement;
-// }
-
 T_expression create_expression(T_val lhs, T_oper operator, T_expression rhs) {
     T_expression new_expression = malloc(sizeof(*new_expression));
-    new_expression -> lhs = lhs;
-    new_expression -> operator = operator;
-    new_expression -> rhs = rhs;
+    new_expression -> lhs = deep_copy_cal(lhs);
+    new_expression -> operator = deep_copy_oper(operator);
+    new_expression -> rhs = deep_copy_expression(rhs);
     return new_expression;
 }
 
