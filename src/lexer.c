@@ -15,10 +15,10 @@ T_token get_token() {
     memset(identifier_str, 0, LENGTH);
     while (isspace(last_char) || last_char == '(' || last_char == ')') {
         // puts("space");
-        if (last_char == '\n') {
-            last_char = getchar();
-            return create_nl_token();
-        }
+        // if (last_char == '\n') {
+        //     last_char = getchar();
+        //     return create_nl_token();
+        // }
         // puts("getchar");
         last_char = getchar();
     }
@@ -91,10 +91,10 @@ T_token get_token() {
 
     while (isspace(last_char) || last_char == '(' || last_char == ')') {
         // puts("camma");
-        if (last_char == '\n') {
-            last_char = getchar();
-            return create_nl_token();
-        }
+        // if (last_char == '\n') {
+        //     last_char = getchar();
+        //     return create_nl_token();
+        // }
         last_char = getchar();
     }
 

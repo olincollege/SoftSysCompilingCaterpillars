@@ -10,6 +10,7 @@ typedef struct S_comp* T_comp;
 typedef struct S_while* T_while;
 typedef struct S_if* T_if;
 
+
 struct S_token {
     enum {VAL, OPER, COMP, NL, END, T_WHILE, T_IF} type;//NL is new line, END is end
     union {

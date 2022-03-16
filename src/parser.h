@@ -14,10 +14,11 @@ typedef struct S_conditional* T_conditional;
 typedef struct S_expression* T_expression;
 
 struct S_statement_list {
+    enum {STATE, BRANCH, LOOP} type;
     union statements {
         T_statement statement;
         T_branch branch;
-        T_while loop;
+        T_loop loop;
     } statement;
     T_statement_list statement_list;
 };
@@ -40,7 +41,7 @@ struct S_loop {
 
 struct S_conditional {
     T_expression lhs;
-    T_oper comparator;
+    T_comp comparator;
     T_expression rhs;
 };
 
@@ -50,15 +51,23 @@ struct S_expression {
     T_expression rhs;
 };
 
-T_statement_list parse_statement_list();
+T_statement_list parse_statement_list(int in_loop_while);
 T_statement parse_statement();
 T_expression parse_expression();
+T_conditional parse_conditional();
+T_loop parse_while();
+T_branch parse_branch();
 T_token get_token();
 
-T_statement_list create_statement_list(T_statement statement, T_statement_list statement_list);
+T_statement_list create_statement_list(int type, T_statement statement, T_statement_list statement_list);
 T_statement create_statement(T_val lhs, T_expression rhs);
 T_expression create_expression(T_val lhs, T_oper operator, T_expression rhs);
-
+T_conditional create_conditional(T_expression lhs, T_comp comparator, T_expression rhs);
+T_loop create_while(T_conditional conditional, T_statement_list list);
+T_branch create_branch(T_conditional conditional, T_statement_list if_statements, T_statement_list else_statements);
+void print_expression(T_expression exp);
+void print_statement(T_statement state);
+void print_conditional(T_conditional cond);
 T_token get_lookahead();
 void next_token();
 
