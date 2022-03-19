@@ -14,7 +14,7 @@ typedef struct S_if* T_if;
 
 struct S_token { 
     // enum identifies what type of token it is
-    enum {VAL, OPER, COMP, NL, END, T_WHILE, T_IF} type; // VAL = value, OPER = operator, COMP = comparison operator, NL = new line, END = end, T_WHILE = while/endwhile, T_IF = if/else/endif
+    enum {VAL, OPER, COMP, NL, END, T_WHILE, T_IF} type; // VAL = value, OPER = operator, COMP = comparator, NL = new line, END = end, T_WHILE = while/endwhile, T_IF = if/else/endif
     union {
         T_val val;
         T_oper oper;
@@ -38,7 +38,7 @@ struct S_oper { //operators: + - * /
     } type;
 };
 
-struct S_comp { //comparison operators: = > < !
+struct S_comp { //comparators: = > < !
     enum {
         EQ, LT, GT, NEQ
     } type;
