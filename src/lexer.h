@@ -4,7 +4,7 @@
 #define LENGTH 255
 
 //save tokens as structs so that we can save all the information regarding each token (various data types) in one place
-typedef struct S_token* T_token;
+typedef struct S_token* T_token; //T_token is a pointer to a struct S_token
 typedef struct S_val* T_val;
 typedef struct S_oper* T_oper;
 typedef struct S_comp* T_comp;
@@ -14,7 +14,7 @@ typedef struct S_if* T_if;
 
 struct S_token { 
     // enum identifies what type of token it is
-    enum {VAL, OPER, COMP, NL, END, T_WHILE, T_IF} type;//NL is new line, END is end
+    enum {VAL, OPER, COMP, NL, END, T_WHILE, T_IF} type; // VAL = value, OPER = operator, COMP = comparison operator, NL = new line, END = end, T_WHILE = while/endwhile, T_IF = if/else/endif
     union {
         T_val val;
         T_oper oper;
