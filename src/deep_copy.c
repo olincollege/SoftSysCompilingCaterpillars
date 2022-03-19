@@ -1,6 +1,9 @@
 #include "parser.h"
 #include <string.h>
 
+// A deep copy copies all the elements of an object. 
+// It is created in scenarios where a new copy is made without refering to the original data. 
+
 T_val deep_copy_val(T_val val) {
     if (val == NULL) return NULL;
     T_val copied_val = malloc(sizeof(*copied_val));
