@@ -115,7 +115,7 @@ T_token get_token() {
 T_token create_single_char_token(char c) {
     T_token token = malloc(sizeof(*token)); //allocate memory for token
     T_oper oper = malloc(sizeof(*oper));  //allocate memory for operator
-    T_comp comp = malloc(sizeof(*comp));  //allocate memory for comparison operator
+    T_comp comp = malloc(sizeof(*comp));  //allocate memory for comparator
     
     //OPER: + - / * 
     //COMP: > < = !
