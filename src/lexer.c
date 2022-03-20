@@ -217,11 +217,11 @@ T_token create_if_token(char* val) {
     return token;
 }
 
-T_token create_nl_token() {
-    T_token token = malloc(sizeof(T_token));
-    token->type = NL;
-    return token;
-}
+// T_token create_nl_token() {
+//     T_token token = malloc(sizeof(T_token));
+//     token->type = NL;
+//     return token;
+// }
 
 // int main(int argc, char *argv[]) {
 //     T_token r;

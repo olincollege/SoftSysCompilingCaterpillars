@@ -12,7 +12,7 @@ typedef struct S_if* T_if;
 
 
 struct S_token {
-    enum {VAL, OPER, COMP, NL, END, T_WHILE, T_IF} type;//NL is new line, END is end
+    enum {VAL, OPER, COMP, END, T_WHILE, T_IF} type;
     union {
         T_val val;
         T_oper oper;
