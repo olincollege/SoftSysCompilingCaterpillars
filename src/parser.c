@@ -77,26 +77,6 @@ T_statement_list parse_statement_list(int in_loop_while) {
     }
 }
 
-T_statement_list create_statement_list(int type, T_statement statement, T_statement_list statement_list) {
-    T_statement_list new_list = malloc(sizeof(*new_list));
-    if (type == LOOP) {
-        new_list -> type = LOOP;
-        // replace with deep_copy_loop
-        // new_list->statement.loop = deep_copy_statement(statement);
-    } else if (type == BRANCH) {
-        new_list -> type = BRANCH;
-        // replace with deep_copy_branch
-        // new_list->statement.loop = deep_copy_statement(statement);
-    } else {
-        new_list -> type = STATE;
-        //replace with deep_copy_statement
-        new_list->statement.statement = deep_copy_statement(statement);
-    }
-    
-    new_list->statement_list = deep_copy_list(statement_list);
-    return new_list;
-}
-
 T_branch parse_branch() { //branch = conditional + statement_list + (if there is an "ELSE" statement, add another branch to parse through its statement_list)
     T_token if_token = get_lookahead();
     // printf("%d \n", if_token -> type);
