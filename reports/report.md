@@ -41,17 +41,18 @@ Once we had a conceptual understanding of compilers, we proceeded to walk throug
 
 #### Stage 3 - Our Implementation 
 
-3.A. Rewrite the Syntax Tree
+##### 3.A. Rewrite the Syntax Tree
 Once we had a deep understanding of compilers and were able to recreate a working toy compiler from lexing to code generation which could perform arithmetic functions, we decided to advance our compiler to be able to assign numerical values to variables, interpret if/else statements, and perform while loops. In order to add these functionalities to our compiler, we had to revisit our original syntax tree and logic from the two tutorials we followed. 
 
-3.B. Split Work and Advance the Compiler
+##### 3.B. Split Work and Advance the Compiler
 A majority of our project till this point lent itself to synchronous work and working on similar tasks as we ramped up. Upon rewriting the syntax tree, we scoped three main functions to add to the compiler and thereby split tasks based on these functions. This was a great learning experience for us as we navigated independent asynchronous work which required clear communication, openness to seeking help, and developing compatible code. We were successful in regular team check-ins and taking initiative to meet and ask clarifying questions. 
 We split the tasks as follows: 
 Abitamim built a parser based on the toy compiler but expanded it to allow for variable assignment, multi-character tokens, and conditionals and loops. Grant took lead on if/else statement lexer and parser implementation while Rishita took lead on while loop lexer and parser implementation. 
-3.C. Rescoping
+
+##### 3.C. Rescoping
 As we were approaching spring break, the team rescoped our goals. We realized that it would be a leap to have a functional code generation functionality in our compiler before break and would likely require working over break. Since we wanted to primarily disconnect from work over break, we revised our goal to have a functional lexer and parser compiler by the end of this project. Given the opportunity, we would like to continue developing this compiler and add code generation capability to it. 
 
-3.D. Visualization
+##### 3.D. Visualization
 Abitamim can talk about this. 
 
 
