@@ -51,7 +51,7 @@ void print_statement(T_statement state) {
 
 void print_conditional(T_conditional cond) {
     print_expression(cond -> lhs);
-    printf("%d ", cond -> comparator -> type);
+    printf("1%d ", cond -> comparator -> type);
     print_expression(cond -> rhs);
     puts("");
 }
@@ -61,23 +61,24 @@ void print_list(T_statement_list orig_list, int layer) {
     while (1) {
         switch (list -> type) {
             case STATE:
+                printf("state %d ", layer);
                 print_statement(list -> statement.statement);
                 break;
             case BRANCH:
-                printf("%d if ", layer);
+                printf("if %d ", layer);
                 print_conditional(list -> statement.branch -> cond);
                 print_list(list -> statement.branch -> if_exp, layer + 1);
                 if (list -> statement.branch -> else_exp) {
-                    printf("%d else \n", layer);
+                    printf("else %d \n", layer);
                     print_list(list -> statement.branch -> else_exp, layer + 1);
                 }
-                printf("%d endif \n", layer);
+                printf("endif %d \n", layer);
                 break;
             case LOOP:
-                printf("%d while ", layer);
+                printf("while %d ", layer);
                 print_conditional(list -> statement.loop -> cond);
                 print_list(list -> statement.loop -> exp, layer + 1);
-                printf("%d endwhile \n", layer);
+                printf("endwhile %d \n", layer);
         }
         if (list -> statement_list == NULL) break;
         list = list -> statement_list;
