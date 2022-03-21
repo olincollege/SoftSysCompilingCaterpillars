@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "../includes/parser.h"
 
 //gcc -o test_parser parser.c lexer.c lexer.h parser.h test_parser.c && cat test3 | ./test_parser
 

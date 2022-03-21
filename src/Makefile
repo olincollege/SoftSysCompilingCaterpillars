@@ -4,11 +4,14 @@ lexer.o: lexer.c lexer.h
 parser.o: parser.c parser.h lexer.h
 	gcc -c parser.c
 
-test_parser: parser.o lexer.o test_parser.c parser.h
-	gcc -o test_parser test_parser.c parser.o lexer.o
+test_parser: parser.o lexer.o ../test/test_parser.c parser.h
+	gcc -o test_parser ../test/test_parser.c parser.o lexer.o
 
 run_test3: test_parser
 	cat test3 | ./test_parser
 
 run_test4: test_parser
 	cat test4 | ./test_parser
+
+clean:
+	rm *.o *.png test_parser

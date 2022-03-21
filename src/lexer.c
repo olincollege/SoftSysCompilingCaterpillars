@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "lexer.h"
+#include "../includes/lexer.h"
 
 //initialize variables
 char identifier_str[LENGTH];

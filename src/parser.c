@@ -1,5 +1,5 @@
-#include "parser.h"
-#include "deep_copy.c"
+#include "../includes/parser.h"
+#include "../includes/deep_copy.h"
 
 T_token lookahead_token;
 
