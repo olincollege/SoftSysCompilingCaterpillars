@@ -18,21 +18,9 @@ T_token get_token() {
     // puts("inside get token");
     memset(identifier_str, 0, LENGTH);
     while (isspace(last_char) || last_char == '(' || last_char == ')') { //while the last character was a blank space or open/close bracket, read next character
-        // puts("space");
-        // if (last_char == '\n') {
-        //     last_char = getchar();
-        //     return create_nl_token();
-        // }
-        // puts("getchar");
+
         last_char = getchar();
     }
-    // puts("first");
-    // printf("%c \n", last_char);
-    // T_token token = create_single_char_token(last_char);
-    // if (token) {
-    //     last_char = getchar();
-    //     return token;
-    // }
 
     if (isalpha(last_char)) { //if first character is an alphabet, add it to list of characters read so far (identifier_str)
         // puts("alpha");
@@ -96,11 +84,6 @@ T_token get_token() {
 
     //IS THIS A REPEAT FROM LINES 16-23??? DO WE NEED THIS AGAIN???
     while (isspace(last_char) || last_char == '(' || last_char == ')') { //while the last character was a blank space or open/close bracket, read next character
-        // puts("camma");
-        // if (last_char == '\n') {
-        //     last_char = getchar();
-        //     return create_nl_token();
-        // }
         last_char = getchar();
     }
 
@@ -233,41 +216,3 @@ T_token create_if_token(char* val) {
     token->value.t_if->type=(!strcmp(val, "if"))?WHILE:(!strcmp(val, "else")?ELSE:ENDIF);
     return token;
 }
-
-<<<<<<< HEAD
-//ARE WE USING THIS?
-T_token create_nl_token() {
-    T_token token = malloc(sizeof(T_token));
-    token->type = NL;
-    return token;
-}
-=======
-// T_token create_nl_token() {
-//     T_token token = malloc(sizeof(T_token));
-//     token->type = NL;
-//     return token;
-// }
->>>>>>> 2a74afd4efeb9e3cbad89b30c6bd18ecc2136a4f
-
-// int main(int argc, char *argv[]) {
-//     T_token r;
-//     while ((r = get_token())->type != END) {
-//         if (r->type == VAL) {
-//             if (r->value.val->type == NUM) {
-//                 printf("type: %d type: %d  value: %f \n", r->type, r->value.val->type, *r->value.val->value.num);
-//             } else {
-//                 printf("type: %d type: %d value: %s \n", r->type, r->value.val->type, r->value.val->value.var); 
-//             }
-//         } else if (r->type == NL) {
-//             puts("NL");
-//         } else if (r->type == COMP) {
-//             printf("type: %d  value: %d \n", r->type, r->value.comp->type);
-//         } else if (r->type == OPER) {
-//             printf("type: %d  value: %d \n", r->type, r->value.oper->type);
-//         } else if (r->type == T_IF) {
-//             printf("if type: %d \n", r->value.t_if->type);
-//         } else if (r->type == T_WHILE) {
-//             printf("while type: %d \n", r->value.t_while->type);
-//         }
-// }
-// }   
