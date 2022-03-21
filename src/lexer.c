@@ -234,12 +234,20 @@ T_token create_if_token(char* val) {
     return token;
 }
 
+<<<<<<< HEAD
 //ARE WE USING THIS?
 T_token create_nl_token() {
     T_token token = malloc(sizeof(T_token));
     token->type = NL;
     return token;
 }
+=======
+// T_token create_nl_token() {
+//     T_token token = malloc(sizeof(T_token));
+//     token->type = NL;
+//     return token;
+// }
+>>>>>>> 2a74afd4efeb9e3cbad89b30c6bd18ecc2136a4f
 
 // int main(int argc, char *argv[]) {
 //     T_token r;
