@@ -7,8 +7,8 @@ parser.o: parser.c parser.h lexer.h
 test_parser: parser.o lexer.o test_parser.c parser.h
 	gcc -o test_parser test_parser.c parser.o lexer.o
 
-run_test3:
+run_test3: test_parser
 	cat test3 | ./test_parser
 
-run_test4:
+run_test4: test_parser
 	cat test4 | ./test_parser

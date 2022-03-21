@@ -1,10 +1,10 @@
-
 import networkx as nx
 from networkx.drawing.nx_agraph import write_dot, graphviz_layout
 import matplotlib.pyplot as plt
+import sys
 
-tree_file = open("output.txt", 'r')
-lines = tree_file.readlines()
+# tree_file = open("output.txt", 'r')
+lines = sys.stdin.readlines()
 
 graph = nx.DiGraph()
 sl_iter = 1
