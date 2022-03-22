@@ -65,46 +65,22 @@ These tokens are then to be used by our parser.
 
 ##### Parser 
 
-//if next token is a "WHILE" token
-// if next token is an "ENDWHILE" token, get next token and break
-//if next token is not an "ENDWHILE" token
-//append memory allocated to current list
-//update current list
-//set current list type to loop
-//parse through the while statement
+Our parser looks at one token at a time and creates an abstract syntax tree interpreting the tokens lexed from the source code. The different components of a parser are as follows: 
 
-//if next token is an "IF" token
-//if the next token is an "ELSE" token, break
-//if next token is an "ENDIF" token, get next token and break
-//else
-//append memory allocated to current list
-//update current list
-//set current list type to branch
-//parse through the branch 
+1) An expression is lhs (left hand side) operand + operator + rhs (right hand side) operand.  (ex. x + 4)
 
-//if next token is a value
-    //append memory allocated to current list
-    //update current list
-    //set current list type to statement
-    //parse through the statement
+2) A statement is a value or variable + equal sign + rhs (right hand side) operand.   (ex. y = 4)
 
-//if next token is "END", break
+3) A conditional is a lhs(left hand side) expression + comparator + rhs (right hand side) expression. (ex. if x + 4 > y + 1)
 
+4) A branch is a conditional + list of statements which would be completed if the if statement is true + (if there is an "ELSE" statement, add another branch to parse through its list of statements).
 
-//branch = conditional + statement_list + (if there is an "ELSE" statement, add another branch to parse through its statement_list)
+5) A while = conditional + list of statements which would be completed till the while loop condition is considered true.  
 
-//while = conditional + statement_list 
-
-//conditional = lhs(left hand side) expression + comparator + rhs (right hand side) expression
-
-//statement = value or variable + equal sign + rhs (right hand side) operand
-
-//expression = lhs (left hand side) operand + operator + rhs (right hand side) operand
+Below is a syntax tree generated from a parser. 
 
 ##### Our Output 
 ![test3_visualization](https://user-images.githubusercontent.com/56645125/159417234-f07c2d6b-cf0d-47d1-8b9a-39ac2daf89b4.png)
-
-
 
 #### 3.D. Rescoping
 As we were approaching spring break, the team rescoped our goals. We realized that it would be a leap to have a functional code generation functionality in our compiler before break and would likely require working over break. Since we wanted to primarily disconnect from work over break, we revised our goal to have a functional lexer and parser compiler by the end of this project. Given the opportunity, we would like to continue developing this compiler and add code generation capability to it, along with different variable types and functions.
@@ -112,7 +88,7 @@ As we were approaching spring break, the team rescoped our goals. We realized th
 #### 3.E. Visualization
 To see the tree as a tree, rather than a text output, Abitamim wrote a visualization script using Python and NetworkX that converted the output from the parser into a tree. This allowed for additional validation, ensuring that the tree we wanted to create was the tree that was created. It effectively recreated the parser in Python, but gradually created the tree as it read the parser output.
 
-### Design Decisions 
+## Design Decisions 
 1. We decided to separate the tokens for comparators and operators, even though both were single character tokens. In the lexer, this added slight complexity in deciding what type of token to return. However, in the parser, this resulted in less comparisons and simpler code, because we could check the type of the token (as a comparator or operator) without having to enter the actual value.
 
 2. A design decision that was incorrect was using a different end statement for loops and conditionals, 'endif' and 'endwhile' respectively. This was created because we thought the language would have an easier to read syntax if we could see which statement was ending. However, using a single end statement would have the same effect, since only the innermost loop/conditional can end in a valid syntax. This would have made the parser slightly simpler, since there would be no need to check if the correct end statement was used.
