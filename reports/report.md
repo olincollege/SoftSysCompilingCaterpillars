@@ -42,17 +42,58 @@ Once we had a conceptual understanding of compilers, we proceeded to walk throug
 #### Stage 3 - Our Implementation 
 
 ##### 3.A. Rewrite the Syntax Tree
-Once we had a deep understanding of compilers and were able to recreate a working toy compiler from lexing to code generation which could perform arithmetic functions, we decided to advance our compiler to be able to assign numerical values to variables, interpret if/else statements, and perform while loops. In order to add these functionalities to our compiler, we had to revisit our original syntax tree and logic from the two tutorials we followed. 
+Once we had a deep understanding of compilers and were able to recreate a
+working toy compiler from lexing to code generation which could perform
+arithmetic functions, we decided to advance our compiler to be able to assign
+numerical values to variables, interpret if/else statements, and perform while
+loops. In order to add these functionalities to our compiler, we had to revisit
+our original syntax tree and logic from the two tutorials we followed. After we
+designed the new structure, Abitamim adapted the lexer code from the LLVM
+tutorial to work with the new features.
 
 ##### 3.B. Split Work and Advance the Compiler
 A majority of our project till this point lent itself to synchronous work and working on similar tasks as we ramped up. Upon rewriting the syntax tree, we scoped three main functions to add to the compiler and thereby split tasks based on these functions. This was a great learning experience for us as we navigated independent asynchronous work which required clear communication, openness to seeking help, and developing compatible code. We were successful in regular team check-ins and taking initiative to meet and ask clarifying questions. 
 We split the tasks as follows: 
-Abitamim built a parser based on the toy compiler but expanded it to allow for variable assignment, multi-character tokens, and conditionals and loops. Grant took lead on if/else statement lexer and parser implementation while Rishita took lead on while loop lexer and parser implementation. 
+Abitamim built a parser inspired by the toy compiler but written to allow for
+variable assignment, multi-character tokens, and conditionals and loops. Rishita
+took the lead in documentation, commenting, and validation. Grant took the lead
+in testing the code.
 
 ##### 3.C. Rescoping
-As we were approaching spring break, the team rescoped our goals. We realized that it would be a leap to have a functional code generation functionality in our compiler before break and would likely require working over break. Since we wanted to primarily disconnect from work over break, we revised our goal to have a functional lexer and parser compiler by the end of this project. Given the opportunity, we would like to continue developing this compiler and add code generation capability to it. 
+As we were approaching spring break, the team rescoped our goals. We realized
+that it would be a leap to have a functional code generation functionality in
+our compiler before break and would likely require working over break. Since we
+wanted to primarily disconnect from work over break, we revised our goal to have
+a functional lexer and parser compiler by the end of this project. Given the
+opportunity, we would like to continue developing this compiler and add code
+generation capability to it, along with different variable types and functions.
 
 ##### 3.D. Visualization
-Abitamim can talk about this. 
+To see the tree as a tree, rather than a text output, Abitamim wrote a
+visualization script using Python and NetworkX that converted the output from
+the parser into a tree. This allowed for additional validation ensuring that the
+tree we wanted to create was the tree that was created. It effectively recreated
+the parser in Python, but gradually created the tree as it read the parser
+output.
+
+##### 5. Design Decisons
+1. We decided to separate the tokens for comparators and operators, even though
+   both were single character tokens. In the lexer, this added slight complexity
+   in deciding what type of token to return. However, in the parser, this
+   resulted in less comparisons and simpler code, because we could check the
+   type of the token (as a comparator or operator) without having to enter the
+   actual value.
+2. A design decison that was incorrect was using a different end statement for
+   loops and conditionals, 'endif' and 'endwhile' respectively. This was created because we thought the language
+   would have an easier to read syntax if we could see which statement was
+   ending. However, using a single end statement would have the same effect,
+   since only the inner most loop/conditional can end in a valid syntax. This
+   would have made the parser slightly simpler, since there would be no need to
+   check if the correct end statement was used.
+3. We put deep copy functions, which accepted variables (intended for stack
+   variables) and turned them into otherwise identical heap variables. This
+   abstraction made the parser simpler because there were far fewer mallocs
+   present, if at all. Only calling the appropriate deep copy function(s) was
+   needed.
 
 
