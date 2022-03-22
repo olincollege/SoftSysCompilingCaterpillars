@@ -85,7 +85,7 @@ T_token get_token() {
         return create_end_token(); //if character is an EOF, create end token
     }
 
-    //IS THIS A REPEAT FROM LINES 16-23??? DO WE NEED THIS AGAIN???
+  
     while (isspace(last_char) || last_char == '(' || last_char == ')') { //while the last character was a blank space or open/close bracket, read next character
         last_char = getchar();
     }
