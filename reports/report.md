@@ -31,17 +31,17 @@ My goals were to become more familiar with memory management and low-level progr
 Now, I am learning more about structs and using them in place of classes in the parser. A number of different structs, along with unions, can be used in place of "nodes" to create a AST. This will help me in the future creating more complicated yet well divided programs with the help of structs and unions to simulate some OO elements.
 Getting Started: Resources
 
-### Our Work
+## Our Work
 
-#### Stage 1 - Research
+### Stage 1 - Research
 
 When we began this project, the team had minimal knowledge regarding the inner workings of a compiler. Therefore, the first step of the process was to do extensive research on toy compilers and subsequently their different components - primarily lexers and parsers. All our resources including walkthrough tutorials of basic arithmetic performing toy compilers are located in the [resources tab](https://github.com/olincollege/SoftSysCompilingCaterpillars/tree/main/resources). 
 
-#### Stage 2 - Tutorials and Learning Curve
+### Stage 2 - Tutorials and Learning Curve
 
 Once we had a conceptual understanding of compilers, we proceeded to walk through and implement the tutorials we had found. There were two main tutorials - an LLVM Kaleidoscope compiler infrastructure walkthrough in C++ and an open source toy compiler lecture in C. Both had different approaches to lexing and parsing with the LLVM tutorial being more advanced (with more edge cases taken into account) than the open source lecture. Abitamim focused on translating LLVM tutorial code from C++ to C. Meanwhile, Rishita and Grant independently followed the open source lecture and rewrote all code to ensure understanding of the material. Rishita also commented the code for a better understanding of future readers. These tutorials were focused on building a toy compiler which could perform arithmetic functions when given two operands and an operator (+,  -,  /,  *). These compiler tutorials walked through lexing, parsing, as well as code generation. These implementations can be found within the [tutorials tab.](https://github.com/olincollege/SoftSysCompilingCaterpillars/tree/main/tutorials) 
 
-#### Stage 3 - Our Implementation
+### Stage 3 - Our Implementation
 
 #### 3.A. Rewrite the Syntax Tree
 Once we had a deep understanding of compilers and were able to recreate a working toy compiler from lexing to code generation which could perform arithmetic functions, we decided to advance our compiler to be able to assign numerical values to variables, interpret if/else statements, and perform while loops. In order to add these functionalities to our compiler, we had to revisit our original syntax tree and logic from the two tutorials we followed. After we designed the new structure, Abitamim adapted the lexer code from the LLVM tutorial to work with the new features.
@@ -112,30 +112,26 @@ As we were approaching spring break, the team rescoped our goals. We realized th
 #### 3.E. Visualization
 To see the tree as a tree, rather than a text output, Abitamim wrote a visualization script using Python and NetworkX that converted the output from the parser into a tree. This allowed for additional validation, ensuring that the tree we wanted to create was the tree that was created. It effectively recreated the parser in Python, but gradually created the tree as it read the parser output.
 
+### Design Decisions 
+1. We decided to separate the tokens for comparators and operators, even though both were single character tokens. In the lexer, this added slight complexity in deciding what type of token to return. However, in the parser, this resulted in less comparisons and simpler code, because we could check the type of the token (as a comparator or operator) without having to enter the actual value.
 
-##### 5. Design Decisons
-1. We decided to separate the tokens for comparators and operators, even though
-   both were single character tokens. In the lexer, this added slight complexity
-   in deciding what type of token to return. However, in the parser, this
-   resulted in less comparisons and simpler code, because we could check the
-   type of the token (as a comparator or operator) without having to enter the
-   actual value.
-2. A design decison that was incorrect was using a different end statement for
-   loops and conditionals, 'endif' and 'endwhile' respectively. This was created because we thought the language
-   would have an easier to read syntax if we could see which statement was
-   ending. However, using a single end statement would have the same effect,
-   since only the inner most loop/conditional can end in a valid syntax. This
-   would have made the parser slightly simpler, since there would be no need to
-   check if the correct end statement was used.
-3. We put deep copy functions, which accepted variables (intended for stack
-   variables) and turned them into otherwise identical heap variables. This
-   abstraction made the parser simpler because there were far fewer mallocs
-   present, if at all. Only calling the appropriate deep copy function(s) was
-   needed.
+2. A design decision that was incorrect was using a different end statement for loops and conditionals, 'endif' and 'endwhile' respectively. This was created because we thought the language would have an easier to read syntax if we could see which statement was ending. However, using a single end statement would have the same effect, since only the innermost loop/conditional can end in a valid syntax. This would have made the parser slightly simpler, since there would be no need to check if the correct end statement was used.
 
-##### 7. Reflection
+3. We put deep copy functions, which accepted variables (intended for stack variables) and turned them into otherwise identical heap variables. This abstraction made the parser simpler because there were far fewer mallocs present, if at all. Only calling the appropriate deep copy function(s) was needed.
 
-#### Abitamim
+4. We made a few decisions regarding syntax to simplify our parsing. We opted to use the end statements for if and while statements rather than indentation to avoid dealing with whitespace delimiting. 
+
+5. For expressions, we decided to ignore the order of operations so we would not have to know ahead of time what other operations are in the line. This made our parsing much easier for our iterative style.
+
+6. Lastly, we opted to not use parentheses to delimit the conditional statements in our branches and loops. Using our functionality to check for new lines, we delimited the conditionals with the “if,” “else,” or “while” and the new line character. This mirrors the behavior of Python, and reusing other functionality we had created helped us simplify parsing.
+
+## Reflection
+
+### Grant
+Most of my learning occurred in the earlier stages of the project. I was able to dive into translation between C++ and C, and I was also able to develop a better understanding of how data structures transfer between the two. At the close of the project, I gained a much greater understanding of implementing automation on larger projects. In the future I hope to learn more about managing projects, and I plan on investigating CMake and other automation tools for delivering software.
+
+
+### Abitamim
 I was able to more comfortably work with memory by praticing when writing the
 parser, especially the deep_copy functions. In implementing a parser with large
 amounts of recursion, I became better at thinking about and visualizing
