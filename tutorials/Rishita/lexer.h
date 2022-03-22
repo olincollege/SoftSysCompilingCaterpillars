@@ -7,6 +7,7 @@
 
 typedef struct S_token* T_token;
 
+//token is a struct where multiple types of data regarding the same item are saved in one place (similar to a class in java)
 struct S_token{
     enum{ NUMBER, OPERATOR, SEMICOLON, END }
     union {
