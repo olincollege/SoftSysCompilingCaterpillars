@@ -13,7 +13,10 @@ double num_val;
 int op;
 int last_char = ' ';
 
-//create a token based on user input
+/** @brief Create a token based on user input
+*
+* @return T_token
+*/
 T_token get_token() {
     // puts("inside get token");
     memset(identifier_str, 0, LENGTH);
@@ -94,7 +97,10 @@ T_token get_token() {
     }
 }
 
-//read single character c, and create a token accordingly
+/** @brief Returns a single character token
+*
+*  @param c: character 
+*/
 T_token create_single_char_token(char c) {
     T_token token = malloc(sizeof(*token)); //allocate memory for token
     T_oper oper = malloc(sizeof(*oper));  //allocate memory for operator
@@ -159,19 +165,28 @@ T_token create_single_char_token(char c) {
     return token;
 }
 
-//free memory allocated to the pointer
+/** @brief Frees a token
+*
+*  @param pointer a pointer to a token
+*/
 void free_token(void *pointer) {
     free(pointer); 
 }
 
-//if character is EOF, create end token
+// Creates END token
 T_token create_end_token() {
     T_token token = malloc(sizeof(T_token)); 
     token->type = END; 
     return token;
 }
 
-//if first character of user input is an alphabet and following characters are alphanumeric, create a variable token
+/** @brief Called when token read starts with letter and remaining characters 
+* are all alphanumeric (i.e. token read is a variable)
+*
+*  @param val pointer to what the variable's value should be
+*
+*  @return T_token
+*/
 T_token create_var_token(char* val) {
     T_token token = malloc(sizeof(*token)); 
     token->type = VAL; 
@@ -184,7 +199,13 @@ T_token create_var_token(char* val) {
     return token;
 }
 
-//if first character of user input is a number, create a number token
+/** @brief Called when token read starts with a number, and all subsequent 
+* characters are numbers.
+*
+*  @param n double representing the value of the token
+*
+*  @return T_token
+*/
 T_token create_number_token(double n) {
     T_token token = malloc(sizeof(*token));
     token->type = VAL;
@@ -197,7 +218,12 @@ T_token create_number_token(double n) {
     return token;
 }
 
-//if a "while" is read, create a while loop token
+/** @brief Creates a while type token if "while" or "endwhile" is read
+*
+*  @param val: a pointer to a string containing "while" or "endwhile"
+*
+*  @return T_token
+*/
 T_token create_while_token(char* val) {
     T_token token = malloc(sizeof(*token));
     token->type = T_WHILE;
@@ -207,7 +233,12 @@ T_token create_while_token(char* val) {
     return token;
 }
 
-//if a "if" or "else" is read, create a conditional token
+/** @brief Creates a conditional token if "if", "else" or "endif" is read
+*
+*  @param val a pointer to a string that contains "if", "else", or "endif"
+*
+*  @return T_token
+*/
 T_token create_if_token(char* val) {
     T_token token = malloc(sizeof(*token));
     token->type = T_IF;
