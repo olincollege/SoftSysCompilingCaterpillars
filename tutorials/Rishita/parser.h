@@ -5,6 +5,8 @@
 
 #include "lexer.h"
 
+//store in struct to save multiple types of data regarding one item in one place (such as expression has 2 operands and 1 operator stored within its struct)
+
 typedef struct S_statement_list* T_statement_list;
 typedef struct S_statement* T_statement;
 typedef struct S_expression* T_expression;
