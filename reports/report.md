@@ -185,11 +185,11 @@ To see the tree as a tree, rather than a text output, Abitamim wrote a visualiza
 ## Reflection
 
 ### Rishita
-
+When we updated our proposal, the lower bound was to have an arithmetic compiler from lexing to code generation and our upper bound was an advanced compiler with if/else statement and while loop capabilities along with assigning variables. I think we hit our upper bound by the end of this project and in fact were able to push beyond the upper bound by creating a visualizer in python for the results of our parser. I’m proud of the work we were able to accomplish given the short time frame and big learning curve that this project came with. In terms of my own learning goals, I think I was able to accomplish all of them. I wanted to feel more comfortable coding in C which was accomplished by reading and commenting on pre-existing compiler code as well as building from that and writing code from scratch. I took the lead on implementing while loop functionality for the compiler. My secondary learning goal was to grow more comfortable with StackOverflow as a resource and learn to search effectively while debugging. As I worked on writing the advanced compiler, there were many times when I had to switch between pre-existing C++ or BASIC code. I used this opportunity to use StackOverflow for syntax and logic questions which helped me practice and develop confidence in using this resource. 
+Finally, I took lead on documenting our work and writing up the reports. Although not initially a learning goal, I came out of this project with more experience on how to clearly document and effectively communicate my work with the audience. 
 
 ### Grant
 Most of my learning occurred in the earlier stages of the project. I was able to dive into translation between C++ and C, and I was also able to develop a better understanding of how data structures transfer between the two. At the close of the project, I gained a much greater understanding of implementing automation on larger projects. In the future I hope to learn more about managing projects, and I plan on investigating CMake and other automation tools for delivering software.
-
 
 ### Abitamim
 I was able to more comfortably work with memory by praticing when writing the
