@@ -11,6 +11,7 @@ void gencode_statement(T_statement statement) {
     gencode_expression(statement->expression);
 }
 
+//generate machine code based on the parser output 
 void gencode_expression(T_expression expression) {
     printf("\n");
     printf("\tmovl $%d, %%eax\n", expression->operand1->number); //%% escapes %
