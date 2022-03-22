@@ -35,7 +35,7 @@ Getting Started: Resources
 
 #### Stage 1 - Research
 
-When we began this project, the team had minimal knowledge regarding the inner workings of a compiler. Therefore, the first step of the process was to do extensive research on toy compilers and subsequently their different components - primarily lexers and parsers. All our resources including walkthrough tutorials of basic arithmetic performing toy compilers are located in the resources tab. 
+When we began this project, the team had minimal knowledge regarding the inner workings of a compiler. Therefore, the first step of the process was to do extensive research on toy compilers and subsequently their different components - primarily lexers and parsers. All our resources including walkthrough tutorials of basic arithmetic performing toy compilers are located in the [resources tab](https://github.com/olincollege/SoftSysCompilingCaterpillars/tree/main/resources). 
 
 #### Stage 2 - Tutorials and Learning Curve
 
