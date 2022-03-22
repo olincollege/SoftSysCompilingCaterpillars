@@ -72,9 +72,8 @@ generation capability to it, along with different variable types and functions.
 To see the tree as a tree, rather than a text output, Abitamim wrote a
 visualization script using Python and NetworkX that converted the output from
 the parser into a tree. This allowed for additional validation ensuring that the
-tree we wanted to create was the tree that was created. It effectively recreated
-the parser in Python, but gradually created the tree as it read the parser
-output.
+tree we wanted to create was the tree that was created. Grant used the makefile
+to automatically compile, parse test code, and then visualize it.
 
 ##### 5. Design Decisons
 1. We decided to separate the tokens for comparators and operators, even though
@@ -96,4 +95,16 @@ output.
    present, if at all. Only calling the appropriate deep copy function(s) was
    needed.
 
+##### 7. Reflection
+
+#### Abitamim
+I was able to more comfortably work with memory by praticing when writing the
+parser, especially the deep_copy functions. In implementing a parser with large
+amounts of recursion, I became better at thinking about and visualizing
+problems, since I could visualize the stack, what needs to be returned to
+accomplish certain goals, even with low level programming. As a bonus, when
+writing the visualizer, I learned more about passing references by value (making
+a copy of the reference) and how to manipulate data with that. This learning
+will also carry over to C. Overall, I accomplished my learning goals of becoming
+more familiar with memory management and low level programming.
 
