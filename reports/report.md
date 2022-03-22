@@ -53,19 +53,50 @@ A majority of our project till this point lent itself to synchronous work and wo
 
 ##### Lexer
 
-Our Lexer reads one character at a time and assigns it a token categorizing it for the parser. Tokens are in a struct so we can save all the information regarding each token (various data types) in one place. Mainly we want to save the type of input and any value associated with it. 
+Our Lexer reads one character at a time and assigns it a token categorizing it for the parser. Tokens are in a struct so we can save all the information regarding each token (various data types) in one place. Mainly we want to save the type of input and any value associated with it. Below is the struct we use to store the tokens.
+
+```
+struct S_token { 
+    enum {VAL, OPER, COMP, END, T_WHILE, T_IF} type;
+    union {
+        T_val val;
+        T_oper oper;
+        T_comp comp;
+        T_while t_while;
+        T_if t_if;
+    } value;
+};
+```
 
 If the character is a blank space or open/close bracket or # (a comment), lexer ignores it and moves on to the next character without assigning it a token. On the other hand, if the character is indicitive of End of File, an end token is created. 
 
-If the first character read is an alphabet followed by alphanumerics, it is considered a variable token. However, if the first character is a number, the next characters must be numbers or a decimal point to be considered a number token. (Please note, for the sake of simplicity we chose to ignore the case where the first character is a number followed by aphanumerics). 
+For an example with alphanumeric characters, the following code deals with tokens that start with alphabet characters. It begins by iterating through until it finds a non-alphanumeric character. It then compares the string collected to various keywords. If it does not detect any keywords, it creates a variable token.
+```
+if (isalpha(last_char)) {
+     int i = 0;
+     identifier_str[i++] = last_char;
+     while (isalnum(last_char = getchar())) {
+          identifier_str[i++] = last_char;
+     }
+     identifier_str[i] = '\0';
+     if (!strcmp(identifier_str, "while") || !strcmp(identifier_str, "endwhile")) {
+          return create_while_token(identifier_str);
+     }
+     if (!strcmp(identifier_str, "if") || !strcmp(identifier_str, "else") || !strcmp(identifier_str, "endif")) {
+          return create_if_token(identifier_str);
+     }
 
-Finally, if "WHILE" or "ENDWHILE" are detected, a while loop token is generated while if "IF", "ELSE", or "ENDIF" are detected, a conditional token is generated. 
+     return create_var_token(identifier_str);
+}
+```
+
+The code responds if "WHILE" or "ENDWHILE" are detected, generating a while loop token, or if "IF", "ELSE", or "ENDIF" are detected, a conditional token is generated. 
 
 These tokens are then to be used by our parser. 
 
 ##### Parser 
 
-Our parser looks at one token at a time and creates an abstract syntax tree interpreting the tokens lexed from the source code. The different components of a parser are as follows: 
+Our parser looks at one token at a time and creates an abstract syntax tree interpreting the tokens lexed from the source code. The different parsed types are: 
 
 1) An expression is lhs (left hand side) operand + operator + rhs (right hand side) operand.  (ex. x + 4)
 
@@ -75,13 +106,62 @@ Our parser looks at one token at a time and creates an abstract syntax tree inte
 
 4) A branch is a conditional + list of statements which would be completed if the if statement is true + (if there is an "ELSE" statement, add another branch to parse through its list of statements).
 
-5) A while = conditional + list of statements which would be completed till the while loop condition is considered true.  
+5) A while = conditional + list of statements which would be completed till the while loop condition is considered true.
 
-Below is a syntax tree generated from a parser. 
+The parser starts by creating a statement list, which contains a statement and another nested statement list with the rest of the tokens. The parser continually checks to make sure it hasn’t arrived at an END character. Below is an example of the code within our parse_statement_list() function that breaks down a while loop. 
+
+```
+if (get_lookahead() -> type == T_WHILE)  { //if next token is a "WHILE" token
+    if (get_lookahead() -> value.t_while -> type == ENDWHILE) {// if next token is an "ENDWHILE" token, get next token and break
+        next_token();
+        if (in_loop_while != 2) parser_error();
+        break;
+    } else { //if next token is not an "ENDWHILE" token
+    if (run++ != 0) { 
+        cur_list -> statement_list = malloc(sizeof(*cur_list)); //append memory allocated to current list
+        cur_list = cur_list -> statement_list; //update current list
+    }
+        cur_list -> type = LOOP; //set current list type to loop 
+        cur_list -> statement.loop = parse_while(); //parse through the while statement
+    }
+}
+```
+in_loop_while is an input to parse_statement_list() that helps us to determine whether we’re exiting the outer loop of a nested loop before the inner one. The second half of this snippet puts the rest of the tokens into the statement_list inside the statement_list that will be returned. The last two lines of this snippet parse through the while loop using the function parse_while(), which has its own nested statement lists and expressions. 
+
+```
+T_loop parse_while() {
+    T_token while_token = get_lookahead();
+    if (T_WHILE != while_token -> type || WHILE != while_token -> value.t_while -> type)
+        parser_error();
+    next_token();
+    T_conditional conditional = parse_conditional();
+    T_statement_list statements = parse_statement_list(2);
+    return create_while(conditional, statements);
+}
+```
+The T_loop struct contains a conditional that determines whether the loop runs and a statement list that includes all of the statements before the “endwhile” keyword. After parsing those two branches, the parser creates a T_loop struct. It allocates the necessary memory and fills in appropriate values.
+
+```
+T_loop create_while(T_conditional conditional, T_statement_list list) {
+    T_loop new_loop = malloc(sizeof(*new_loop));
+    new_loop -> cond = conditional;
+    new_loop -> exp = list;
+    return new_loop;
+}
+```
+This process follows the while loop implementation. The full functionality is detailed in the lexer.c and parser.c files. 
 
 ##### Our Output 
-Below is a tree generated by our parser for [test3](https://github.com/olincollege/SoftSysCompilingCaterpillars/blob/main/src/test3). 
-![test3_visualization](https://user-images.githubusercontent.com/56645125/159417234-f07c2d6b-cf0d-47d1-8b9a-39ac2daf89b4.png)
+Below is a tree generated by our parser for the following code:
+```
+while var1 < 43
+    var2 = 93 - var5
+    if var5 + 15 = 24.6 - var2
+        var3 = 43.0- 23.8
+endif
+endwhile
+```
+![test3_visualization](report_tree.png)
 
 #### 3.D. Rescoping
 As we were approaching spring break, the team rescoped our goals. We realized that it would be a leap to have a functional code generation functionality in our compiler before break and would likely require working over break. Since we wanted to primarily disconnect from work over break, we revised our goal to have a functional lexer and parser compiler by the end of this project. Given the opportunity, we would like to continue developing this compiler and add code generation capability to it, along with different variable types and functions.
