@@ -41,41 +41,77 @@ When we began this project, the team had minimal knowledge regarding the inner w
 
 Once we had a conceptual understanding of compilers, we proceeded to walk through and implement the tutorials we had found. There were two main tutorials - an LLVM Kaleidoscope compiler infrastructure walkthrough in C++ and an open source toy compiler lecture in C. Both had different approaches to lexing and parsing with the LLVM tutorial being more advanced (with more edge cases taken into account) than the open source lecture. Abitamim focused on translating LLVM tutorial code from C++ to C. Meanwhile, Rishita and Grant independently followed the open source lecture and rewrote all code to ensure understanding of the material. Rishita also commented the code for a better understanding of future readers. These tutorials were focused on building a toy compiler which could perform arithmetic functions when given two operands and an operator (+,  -,  /,  *). These compiler tutorials walked through lexing, parsing, as well as code generation. These implementations can be found within the [tutorials tab.](https://github.com/olincollege/SoftSysCompilingCaterpillars/tree/main/tutorials) 
 
-#### Stage 3 - Our Implementation 
+#### Stage 3 - Our Implementation
 
-##### 3.A. Rewrite the Syntax Tree
-Once we had a deep understanding of compilers and were able to recreate a
-working toy compiler from lexing to code generation which could perform
-arithmetic functions, we decided to advance our compiler to be able to assign
-numerical values to variables, interpret if/else statements, and perform while
-loops. In order to add these functionalities to our compiler, we had to revisit
-our original syntax tree and logic from the two tutorials we followed. After we
-designed the new structure, Abitamim adapted the lexer code from the LLVM
-tutorial to work with the new features.
+#### 3.A. Rewrite the Syntax Tree
+Once we had a deep understanding of compilers and were able to recreate a working toy compiler from lexing to code generation which could perform arithmetic functions, we decided to advance our compiler to be able to assign numerical values to variables, interpret if/else statements, and perform while loops. In order to add these functionalities to our compiler, we had to revisit our original syntax tree and logic from the two tutorials we followed. After we designed the new structure, Abitamim adapted the lexer code from the LLVM tutorial to work with the new features.
 
-##### 3.B. Split Work and Advance the Compiler
-A majority of our project till this point lent itself to synchronous work and working on similar tasks as we ramped up. Upon rewriting the syntax tree, we scoped three main functions to add to the compiler and thereby split tasks based on these functions. This was a great learning experience for us as we navigated independent asynchronous work which required clear communication, openness to seeking help, and developing compatible code. We were successful in regular team check-ins and taking initiative to meet and ask clarifying questions. 
-We split the tasks as follows: 
-Abitamim built a parser inspired by the toy compiler but written to allow for
-variable assignment, multi-character tokens, and conditionals and loops. Rishita
-took the lead in documentation, commenting, and validation. Grant took the lead
-in testing the code.
+#### 3.B. Split Work and Advance the Compiler
+A majority of our project till this point lent itself to synchronous work and working on similar tasks as we ramped up. Upon rewriting the syntax tree, we scoped three main functions to add to the compiler and thereby split tasks based on these functions. This was a great learning experience for us as we navigated independent asynchronous work which required clear communication, openness to seeking help, and developing compatible code. We were successful in regular team check-ins and taking initiative to meet and ask clarifying questions. We split the tasks as follows: Abitamim built a parser inspired by the toy compiler but written to allow for variable assignment, multi-character tokens, and conditionals and loops. Rishita took the lead in documentation, commenting, and validation. Grant took the lead in overall architecture and testing.
 
-##### 3.C. Rescoping
-As we were approaching spring break, the team rescoped our goals. We realized
-that it would be a leap to have a functional code generation functionality in
-our compiler before break and would likely require working over break. Since we
-wanted to primarily disconnect from work over break, we revised our goal to have
-a functional lexer and parser compiler by the end of this project. Given the
-opportunity, we would like to continue developing this compiler and add code
-generation capability to it, along with different variable types and functions.
+#### 3.C. Final Lexer and Parser
 
-##### 3.D. Visualization
-To see the tree as a tree, rather than a text output, Abitamim wrote a
-visualization script using Python and NetworkX that converted the output from
-the parser into a tree. This allowed for additional validation ensuring that the
-tree we wanted to create was the tree that was created. Grant used the makefile
-to automatically compile, parse test code, and then visualize it.
+##### Lexer
+
+Our Lexer reads one character at a time and assigns it a token categorizing it for the parser. Tokens are in a struct so we can save all the information regarding each token (various data types) in one place. Mainly we want to save the type of input and any value associated with it. 
+
+If the character is a blank space or open/close bracket or # (a comment), lexer ignores it and moves on to the next character without assigning it a token. On the other hand, if the character is indicitive of End of File, an end token is created. 
+
+If the first character read is an alphabet followed by alphanumerics, it is considered a variable token. However, if the first character is a number, the next characters must be numbers or a decimal point to be considered a number token. (Please note, for the sake of simplicity we chose to ignore the case where the first character is a number followed by aphanumerics). 
+
+Finally, if "WHILE" or "ENDWHILE" are detected, a while loop token is generated while if "IF", "ELSE", or "ENDIF" are detected, a conditional token is generated. 
+
+These tokens are then to be used by our parser. 
+
+##### Parser 
+
+//if next token is a "WHILE" token
+// if next token is an "ENDWHILE" token, get next token and break
+//if next token is not an "ENDWHILE" token
+//append memory allocated to current list
+//update current list
+//set current list type to loop
+//parse through the while statement
+
+//if next token is an "IF" token
+//if the next token is an "ELSE" token, break
+//if next token is an "ENDIF" token, get next token and break
+//else
+//append memory allocated to current list
+//update current list
+//set current list type to branch
+//parse through the branch 
+
+//if next token is a value
+    //append memory allocated to current list
+    //update current list
+    //set current list type to statement
+    //parse through the statement
+
+//if next token is "END", break
+
+
+//branch = conditional + statement_list + (if there is an "ELSE" statement, add another branch to parse through its statement_list)
+
+//while = conditional + statement_list 
+
+//conditional = lhs(left hand side) expression + comparator + rhs (right hand side) expression
+
+//statement = value or variable + equal sign + rhs (right hand side) operand
+
+//expression = lhs (left hand side) operand + operator + rhs (right hand side) operand
+
+##### Our Output 
+![test3_visualization](https://user-images.githubusercontent.com/56645125/159417234-f07c2d6b-cf0d-47d1-8b9a-39ac2daf89b4.png)
+
+
+
+#### 3.D. Rescoping
+As we were approaching spring break, the team rescoped our goals. We realized that it would be a leap to have a functional code generation functionality in our compiler before break and would likely require working over break. Since we wanted to primarily disconnect from work over break, we revised our goal to have a functional lexer and parser compiler by the end of this project. Given the opportunity, we would like to continue developing this compiler and add code generation capability to it, along with different variable types and functions.
+
+#### 3.E. Visualization
+To see the tree as a tree, rather than a text output, Abitamim wrote a visualization script using Python and NetworkX that converted the output from the parser into a tree. This allowed for additional validation, ensuring that the tree we wanted to create was the tree that was created. It effectively recreated the parser in Python, but gradually created the tree as it read the parser output.
+
 
 ##### 5. Design Decisons
 1. We decided to separate the tokens for comparators and operators, even though
