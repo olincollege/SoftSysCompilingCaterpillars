@@ -1,4 +1,4 @@
-# Comp-lexity
+# Comp-lexity: A Toy Compiler
 
 ### Abitamim Bharmal, Grant Miner, Rishita Sarin
 
