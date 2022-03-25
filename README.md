@@ -1,5 +1,17 @@
 # SoftSysCompilingCaterpillars
 
+## How to Run
+
+In the main directory, type:
+```
+make
+```
+This will compile the file:
+```
+/test/test3
+```
+Edit ```test3``` to create your own tree.
+
 ## Toy Compiler
 The goal of this project was to develop a compiler. A compiler takes source code written in high level languages such as python and C and converts it into machine code which can be interpreted by the CPU of the computer. Compilers have a front-end and back-end interface. Our focus during this project was to implement the front-end of a compiler which consists of a lexer and parser. Our stretch goal was to implement a code generator back-end interface which we unfortunately were not able to accomplish. 
 
