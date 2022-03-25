@@ -7,7 +7,7 @@ import sys
 lines = sys.stdin.readlines()
 
 graph = nx.DiGraph()
-sl_iter = 1
+sl_iter = 0
 s_iter = 1
 w_iter = 1
 if_iter = 1
@@ -222,12 +222,11 @@ def create_if(graph, parent_node, lines):
         del lines[0]
         create_new_list(graph, node, lines)
 
-parent_node = "Statement List 1"
+parent_node = "Statement List 0"
 create_new_list(graph, parent_node, lines)
+graph.remove_node("Statement List 0")
 plt.figure(figsize=(100, 50))
 plt.title('draw_networkx')
 pos = graphviz_layout(graph, prog='dot')
 nx.draw_networkx(graph, pos, arrows=True, node_color="white")
 plt.savefig('nx_test.png')
-
-
