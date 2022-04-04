@@ -22,8 +22,11 @@ How Code Generation Works: https://www.tutorialspoint.com/compiler_design/compil
 ## Next Steps
 We all have little experience when it comes to x86. We will all go through the x86 lectures to build a foundation for this work. 
 Then, we will all read through and understand code generation toy compiler code.
+
 Grant has some experience working in this space due to his background in Computer Architecture. He will refresh his memory and share those resources with us. 
+
 Abitamim will be working on static checking. If the parser raises an error while doing static analysis, we will consider is done. 
+
 Grant will translate our test file into assembly code by hand. 
 
 We had a sync set up for Monday and Wednesday where we will discuss out findings and ensure we are all on the same page with our understanding of the material.
