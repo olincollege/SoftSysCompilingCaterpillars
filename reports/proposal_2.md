@@ -9,7 +9,9 @@ This project, we are planning to build on our our toy compiler project from last
 ## Learning Goals
 We all share the same learning goals this project. Our primary goal is to learn and gain experience in x86 assembly language. We also hope to develop our skills of working in a team based software project with a special focus in delegation of tasks, keeping up with documentation, and maintaing communication within the team via regular syncs. 
 
-Rishita is also interested in pursuing the tasks related to being a PM on a software project team. IDK if this is actually possible given our project? 
+Rishita is also interested in pursuing the tasks related to being a PM on a software project team. This will involve keeping the team on track and organizing meetings as well as making broader architectural decisions.
+
+Grant has wanted to develop a moderate ability to translate code into assembly by hand, and he is looking forward to validating the code generation for the test files.
 
 ## Resources
 We've found some lectures on x86 that we hope to look through and take notes on to build a basic understanding of this assembly language. We also have a toy compiler example of code generation as a starting point  to work through. 
@@ -23,10 +25,10 @@ How Code Generation Works: https://www.tutorialspoint.com/compiler_design/compil
 We all have little experience when it comes to x86. We will all go through the x86 lectures to build a foundation for this work. 
 Then, we will all read through and understand code generation toy compiler code.
 
-Grant has some experience working in this space due to his background in Computer Architecture. He will refresh his memory and share those resources with us. 
+Grant has some experience working in this space due to his background in Computer Architecture. He will refresh his memory and share those resources with us. His first deliverable will be translating our test file into assembly by hand to give us an idea of where we're going.
 
-Abitamim will be working on static checking. If the parser raises an error while doing static analysis, we will consider is done. 
+Abitamim will design the static checker to verify variables have been declared before they are referenced. Our test file should throw an error because of this issue. Basic testing for this should be relatively simple.
 
-Grant will translate our test file into assembly code by hand. 
+Rishita will be focusing on PM-ing and leading our overall structuring. She will be looking into the tutorial code generators for templates on how to do this step.
 
-We had a sync set up for Monday and Wednesday where we will discuss out findings and ensure we are all on the same page with our understanding of the material.
+We have a sync set up for Mondays and a work session on Wednesdays where we will discuss our findings and ensure we are all on the same page with our understanding of the material.
