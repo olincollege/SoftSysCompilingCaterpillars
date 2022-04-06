@@ -1,3 +1,5 @@
+## Lexing and Parsing 
+
 1) Lexing and Parsing Lecture from UMD. This was used as a basis for understanding these processes. (https://www.cs.umd.edu/class/spring2017/cmsc430/slides/03-lexing-parsing.pdf) 
 
 2) Lexing versus Parsing. This was used to understand the difference between these processes. (https://www.quora.com/What-is-the-difference-between-a-lexer-and-a-parser) 
