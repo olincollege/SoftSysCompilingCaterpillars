@@ -13,6 +13,8 @@ Rishita is also interested in pursuing the tasks related to being a PM on a soft
 
 Grant has wanted to develop a moderate ability to translate code into assembly by hand, and he is looking forward to validating the code generation for the test files.
 
+Abitamim wants to learn assembly and how code changes can result in assembly changes. He also wants to learn how to structure code generation to allow for efficient traversal of the syntax tree.
+
 ## Resources
 We've found some lectures on x86 that we hope to look through and take notes on to build a basic understanding of this assembly language. We also have a toy compiler example of code generation as a starting point  to work through. 
 Since all of us have little experience in this space, we would appreciate any other resources available to the teaching team. 
@@ -27,7 +29,7 @@ Then, we will all read through and understand code generation toy compiler code.
 
 Grant has some experience working in this space due to his background in Computer Architecture. He will refresh his memory and share those resources with us. His first deliverable will be translating our test file into assembly by hand to give us an idea of where we're going.
 
-Abitamim will design the static checker to verify variables have been declared before they are referenced. Our test file should throw an error because of this issue. Basic testing for this should be relatively simple.
+Abitamim will design the static checker to verify variables have been declared before they are referenced. Our test file should throw an error because of this issue. Basic testing for this should be relatively simple. 
 
 Rishita will be focusing on PM-ing and leading our overall structuring. She will be looking into the tutorial code generators for templates on how to do this step.
 
