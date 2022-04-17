@@ -49,7 +49,6 @@ void check_statement(T_statement statement, GHashTable* map) {
 
 void check_expression(T_expression exp, GHashTable* map) {
     if (exp -> lhs -> type == VAR) {
-        puts(exp -> lhs -> value.var);
         if (!g_hash_table_contains (map, (void*) exp -> lhs -> value.var)) {
                 checker_error(exp -> lhs -> value.var);
         }
