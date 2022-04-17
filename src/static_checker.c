@@ -1,7 +1,7 @@
 #include "../includes/static_checker.h"
 
 
-int var_check(T_statement_list root) {
+GHashTable* var_check(T_statement_list root) {
     guint i;
     gchar *contents = NULL;
     gboolean ret;
@@ -9,6 +9,7 @@ int var_check(T_statement_list root) {
     GList* values;
     GHashTable* map = g_hash_table_new(g_str_hash, g_str_equal);
     traverse_list(root, map);
+    return map;
 }
 
 void traverse_list(T_statement_list root, GHashTable* map) {

@@ -2,7 +2,7 @@
 
 #include "../includes/parser.h"
 
-int var_check(T_statement_list root);
+GHashTable* var_check(T_statement_list root);
 void traverse_list(T_statement_list root, GHashTable* map);
 void check_loop(T_loop loop, GHashTable* map);
 void check_branch(T_branch branch, GHashTable* map);
