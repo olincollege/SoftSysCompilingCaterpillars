@@ -8,8 +8,8 @@ viz3: run_test3 test/test3_out.txt
 run_test3: test_parser
 	@cat test/test3 | ./test_parser > test/test3_out.txt
 
-test_parser: $(TESTER) parser.o lexer.o deep_copy.o
-	@gcc -o test_parser test/test_parser.c parser.o lexer.o deep_copy.o;
+test_parser: $(TESTER) parser.o lexer.o deep_copy.o src/static_checker.c
+	@gcc -o test_parser test/test_parser.c parser.o lexer.o deep_copy.o src/static_checker.c includes/static_checker.h `pkg-config --libs --cflags glib-2.0`;
 	@rm *.o
 	
 lexer.o: $(LEXERS)
