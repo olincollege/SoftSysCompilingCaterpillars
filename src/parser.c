@@ -23,6 +23,9 @@ void next_token() {
  * @return T_statement_list 
  */
 T_statement_list parse_statement_list(int in_loop_while) {
+    if (lookahead_token == NULL) {
+        next_token();
+    }
     if (END != get_lookahead() -> type) { //if next token is not "END", allocate memory for the statement list and let current list equal it
         T_statement_list list = malloc(sizeof(*list));
         T_statement_list cur_list = list;
