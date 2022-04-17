@@ -1,4 +1,4 @@
-#include "../includes/parser.h"
+#include "../includes/static_checker.h"
 
 //gcc -o test_parser parser.c lexer.c lexer.h parser.h test_parser.c && cat test3 | ./test_parser
 
@@ -87,7 +87,7 @@ void print_list(T_statement_list orig_list, int layer) {
 
 int main() {
     // puts("inside");
-    next_token();
+    // next_token();
     // printf("%d \n", get_lookahead() -> type);
     // T_expression exp = test_parse_expression();
     // print_expression(exp);
@@ -118,6 +118,7 @@ int main() {
     // }
 
     T_statement_list program = parse_statement_list(0);
+    var_check(program);
     print_list(program, 1);
     puts("done");
 }
