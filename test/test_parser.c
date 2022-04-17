@@ -85,6 +85,10 @@ void print_list(T_statement_list orig_list, int layer) {
     }
 }
 
+void print_var(gpointer key, gpointer value, gpointer user_data) {
+    fprintf((FILE*) user_data, "%s\n", (char*) key);
+}
+
 int main() {
     // puts("inside");
     // next_token();
@@ -118,7 +122,10 @@ int main() {
     // }
 
     T_statement_list program = parse_statement_list(0);
-    var_check(program);
+    GHashTable* vars = var_check(program);
     print_list(program, 1);
+    FILE *out_file = fopen("var_list.txt", "w");
+    g_hash_table_foreach(vars, (GHFunc) print_var, (gpointer) out_file);
+    
     puts("done");
 }
