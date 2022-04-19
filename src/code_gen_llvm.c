@@ -106,7 +106,7 @@ Value *NumberExprAST::codegen() {
   return ConstantFP::get(*TheContext, APFloat(Val));
 }
 
-Value *VariableExprAST::codegen() {
+Value *VariableExprAST::codegen() { //this is good
   // Look this variable up in the function.
   Value *V = NamedValues[Name];
   if (!V)
@@ -114,7 +114,7 @@ Value *VariableExprAST::codegen() {
   return V;
 }
 
-Value *BinaryExprAST::codegen() {
+Value *BinaryExprAST::codegen() { //this is  good
   Value *L = LHS->codegen();
   Value *R = RHS->codegen();
   if (!L || !R)
@@ -136,25 +136,6 @@ Value *BinaryExprAST::codegen() {
   }
 }
 
-Value *CallExprAST::codegen() {
-  // Look up the name in the global module table.
-  Function *CalleeF = TheModule->getFunction(Callee);
-  if (!CalleeF)
-    return LogErrorV("Unknown function referenced");
-
-  // If argument mismatch error.
-  if (CalleeF->arg_size() != Args.size())
-    return LogErrorV("Incorrect # arguments passed");
-
-  std::vector<Value *> ArgsV;
-  for (unsigned i = 0, e = Args.size(); i != e; ++i) {
-    ArgsV.push_back(Args[i]->codegen());
-    if (!ArgsV.back())
-      return nullptr;
-  }
-
-  return Builder->CreateCall(CalleeF, ArgsV, "calltmp");
-}
 
 Function *PrototypeAST::codegen() {
   // Make the function type:  double(double,double) etc.
@@ -206,3 +187,5 @@ Function *FunctionAST::codegen() {
   TheFunction->eraseFromParent();
   return nullptr;
 }
+
+
