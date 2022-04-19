@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "../includes/static_checker.h"
 
 //gcc -o test_parser parser.c lexer.c lexer.h parser.h test_parser.c && cat test3 | ./test_parser
 
@@ -51,7 +51,7 @@ void print_statement(T_statement state) {
 
 void print_conditional(T_conditional cond) {
     print_expression(cond -> lhs);
-    printf("%d ", cond -> comparator -> type);
+    printf("1%d ", cond -> comparator -> type);
     print_expression(cond -> rhs);
     puts("");
 }
@@ -61,32 +61,37 @@ void print_list(T_statement_list orig_list, int layer) {
     while (1) {
         switch (list -> type) {
             case STATE:
+                printf("state %d ", layer);
                 print_statement(list -> statement.statement);
                 break;
             case BRANCH:
-                printf("%d if ", layer);
+                printf("if %d ", layer);
                 print_conditional(list -> statement.branch -> cond);
                 print_list(list -> statement.branch -> if_exp, layer + 1);
                 if (list -> statement.branch -> else_exp) {
-                    printf("%d else \n", layer);
+                    printf("else %d \n", layer);
                     print_list(list -> statement.branch -> else_exp, layer + 1);
                 }
-                printf("%d endif \n", layer);
+                printf("endif %d \n", layer);
                 break;
             case LOOP:
-                printf("%d while ", layer);
+                printf("while %d ", layer);
                 print_conditional(list -> statement.loop -> cond);
                 print_list(list -> statement.loop -> exp, layer + 1);
-                printf("%d endwhile \n", layer);
+                printf("endwhile %d \n", layer);
         }
         if (list -> statement_list == NULL) break;
         list = list -> statement_list;
     }
 }
 
+void print_var(gpointer key, gpointer value, gpointer user_data) {
+    fprintf((FILE*) user_data, "%s\n", (char*) key);
+}
+
 int main() {
     // puts("inside");
-    next_token();
+    // next_token();
     // printf("%d \n", get_lookahead() -> type);
     // T_expression exp = test_parse_expression();
     // print_expression(exp);
@@ -117,6 +122,10 @@ int main() {
     // }
 
     T_statement_list program = parse_statement_list(0);
+    GHashTable* vars = var_check(program);
     print_list(program, 1);
+    FILE *out_file = fopen("var_list.txt", "w");
+    g_hash_table_foreach(vars, (GHFunc) print_var, (gpointer) out_file);
+    
     puts("done");
 }

@@ -12,14 +12,9 @@ typedef struct S_while* T_while;
 typedef struct S_if* T_if;
 
 
-<<<<<<< HEAD
 struct S_token { 
     // enum identifies what type of token it is
-    enum {VAL, OPER, COMP, NL, END, T_WHILE, T_IF} type; // VAL = value, OPER = operator, COMP = comparator, NL = new line, END = end, T_WHILE = while/endwhile, T_IF = if/else/endif
-=======
-struct S_token {
-    enum {VAL, OPER, COMP, END, T_WHILE, T_IF} type;
->>>>>>> 2a74afd4efeb9e3cbad89b30c6bd18ecc2136a4f
+    enum {VAL, OPER, COMP, END, T_WHILE, T_IF} type; // VAL = value, OPER = operator, COMP = comparator, END = end, T_WHILE = while/endwhile, T_IF = if/else/endif
     union {
         T_val val;
         T_oper oper;
@@ -67,7 +62,6 @@ T_token create_var_token(char* val);
 T_token create_while_token(char* val);
 T_token create_if_token(char* val);
 T_token create_number_token(double n);
-T_token create_nl_token();
 T_token create_single_char_token(char c);
 T_token get_token();
 

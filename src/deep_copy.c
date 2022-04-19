@@ -1,9 +1,15 @@
-#include "parser.h"
+#include "../includes/deep_copy.h"
 #include <string.h>
 
 // A deep copy copies all the elements of an object. 
 // It is created in scenarios where a new copy is made without refering to the original data. 
 
+/**
+ * @brief Copies value from stack to heap for continued access
+ * 
+ * @param val T_val
+ * @return T_val
+ */
 T_val deep_copy_val(T_val val) {
     if (val == NULL) return NULL;
     T_val copied_val = malloc(sizeof(*copied_val));
@@ -20,6 +26,12 @@ T_val deep_copy_val(T_val val) {
     return copied_val;
 }
 
+/**
+ * @brief Copies operator from stack to heap for continued access
+ * 
+ * @param oper T_oper
+ * @return T_oper
+ */
 T_oper deep_copy_oper(T_oper oper) {
     if (oper == NULL) return NULL;
     T_oper copied_oper = malloc(sizeof(*copied_oper));
@@ -27,6 +39,12 @@ T_oper deep_copy_oper(T_oper oper) {
     return copied_oper;
 }
 
+/**
+ * @brief Copies comparator from stack to heap for continued access
+ * 
+ * @param comp T_comp
+ * @return T_comp 
+ */
 T_comp deep_copy_comp(T_comp comp) {
     if (comp == NULL) return NULL;
     T_comp copied_comp = malloc(sizeof(*copied_comp));
@@ -34,6 +52,12 @@ T_comp deep_copy_comp(T_comp comp) {
     return copied_comp;
 }
 
+/**
+ * @brief Copies expression from stack to heap for continued access
+ * 
+ * @param expression T_expression
+ * @return T_expression 
+ */
 T_expression deep_copy_expression(T_expression expression) {
     if (expression == NULL) return NULL;
     T_expression copied_expression = malloc(sizeof(*copied_expression));
@@ -47,6 +71,12 @@ T_expression deep_copy_expression(T_expression expression) {
     return copied_expression;
 }
 
+/**
+ * @brief Copies statement from stack to heap for continued access
+ * 
+ * @param statement T_statement
+ * @return T_statement 
+ */
 T_statement deep_copy_statement(T_statement statement) {
     if (statement == NULL) return NULL;
     T_statement copied_statement = malloc(sizeof(*copied_statement));
@@ -55,6 +85,12 @@ T_statement deep_copy_statement(T_statement statement) {
     return copied_statement;
 }
 
+/**
+ * @brief Copies conditional from stack to heap for continued access
+ * 
+ * @param conditional T_conditional
+ * @return T_conditional 
+ */
 T_conditional deep_copy_conditional(T_conditional conditional) {
     if (conditional == NULL) return NULL;
     T_conditional copied_conditional = malloc(sizeof(*copied_conditional));
@@ -64,6 +100,12 @@ T_conditional deep_copy_conditional(T_conditional conditional) {
     return copied_conditional;
 }
 
+/**
+ * @brief Copies statement list from stack to heap for continued access
+ * 
+ * @param list T_statement_list
+ * @return T_statement_list 
+ */
 T_statement_list deep_copy_list(T_statement_list list) {
     if (list == NULL) return NULL;
     T_statement_list copied_list;

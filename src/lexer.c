@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "lexer.h"
+#include "../includes/lexer.h"
 
 //initialize variables
 char identifier_str[LENGTH];
@@ -13,26 +13,17 @@ double num_val;
 int op;
 int last_char = ' ';
 
-//create a token based on user input
+/** @brief Create a token based on user input
+*
+* @return T_token
+*/
 T_token get_token() {
     // puts("inside get token");
     memset(identifier_str, 0, LENGTH);
     while (isspace(last_char) || last_char == '(' || last_char == ')') { //while the last character was a blank space or open/close bracket, read next character
-        // puts("space");
-        // if (last_char == '\n') {
-        //     last_char = getchar();
-        //     return create_nl_token();
-        // }
-        // puts("getchar");
+
         last_char = getchar();
     }
-    // puts("first");
-    // printf("%c \n", last_char);
-    // T_token token = create_single_char_token(last_char);
-    // if (token) {
-    //     last_char = getchar();
-    //     return token;
-    // }
 
     if (isalpha(last_char)) { //if first character is an alphabet, add it to list of characters read so far (identifier_str)
         // puts("alpha");
@@ -94,13 +85,8 @@ T_token get_token() {
         return create_end_token(); //if character is an EOF, create end token
     }
 
-    //IS THIS A REPEAT FROM LINES 16-23??? DO WE NEED THIS AGAIN???
+  
     while (isspace(last_char) || last_char == '(' || last_char == ')') { //while the last character was a blank space or open/close bracket, read next character
-        // puts("camma");
-        // if (last_char == '\n') {
-        //     last_char = getchar();
-        //     return create_nl_token();
-        // }
         last_char = getchar();
     }
 
@@ -111,7 +97,10 @@ T_token get_token() {
     }
 }
 
-//read single character c, and create a token accordingly
+/** @brief Returns a single character token
+*
+*  @param c: character 
+*/
 T_token create_single_char_token(char c) {
     T_token token = malloc(sizeof(*token)); //allocate memory for token
     T_oper oper = malloc(sizeof(*oper));  //allocate memory for operator
@@ -176,19 +165,28 @@ T_token create_single_char_token(char c) {
     return token;
 }
 
-//free memory allocated to the pointer
+/** @brief Frees a token
+*
+*  @param pointer a pointer to a token
+*/
 void free_token(void *pointer) {
     free(pointer); 
 }
 
-//if character is EOF, create end token
+// Creates END token
 T_token create_end_token() {
     T_token token = malloc(sizeof(T_token)); 
     token->type = END; 
     return token;
 }
 
-//if first character of user input is an alphabet and following characters are alphanumeric, create a variable token
+/** @brief Called when token read starts with letter and remaining characters 
+* are all alphanumeric (i.e. token read is a variable)
+*
+*  @param val pointer to what the variable's value should be
+*
+*  @return T_token
+*/
 T_token create_var_token(char* val) {
     T_token token = malloc(sizeof(*token)); 
     token->type = VAL; 
@@ -201,7 +199,13 @@ T_token create_var_token(char* val) {
     return token;
 }
 
-//if first character of user input is a number, create a number token
+/** @brief Called when token read starts with a number, and all subsequent 
+* characters are numbers.
+*
+*  @param n double representing the value of the token
+*
+*  @return T_token
+*/
 T_token create_number_token(double n) {
     T_token token = malloc(sizeof(*token));
     token->type = VAL;
@@ -214,7 +218,12 @@ T_token create_number_token(double n) {
     return token;
 }
 
-//if a "while" is read, create a while loop token
+/** @brief Creates a while type token if "while" or "endwhile" is read
+*
+*  @param val: a pointer to a string containing "while" or "endwhile"
+*
+*  @return T_token
+*/
 T_token create_while_token(char* val) {
     T_token token = malloc(sizeof(*token));
     token->type = T_WHILE;
@@ -224,7 +233,12 @@ T_token create_while_token(char* val) {
     return token;
 }
 
-//if a "if" or "else" is read, create a conditional token
+/** @brief Creates a conditional token if "if", "else" or "endif" is read
+*
+*  @param val a pointer to a string that contains "if", "else", or "endif"
+*
+*  @return T_token
+*/
 T_token create_if_token(char* val) {
     T_token token = malloc(sizeof(*token));
     token->type = T_IF;
@@ -233,41 +247,3 @@ T_token create_if_token(char* val) {
     token->value.t_if->type=(!strcmp(val, "if"))?WHILE:(!strcmp(val, "else")?ELSE:ENDIF);
     return token;
 }
-
-<<<<<<< HEAD
-//ARE WE USING THIS?
-T_token create_nl_token() {
-    T_token token = malloc(sizeof(T_token));
-    token->type = NL;
-    return token;
-}
-=======
-// T_token create_nl_token() {
-//     T_token token = malloc(sizeof(T_token));
-//     token->type = NL;
-//     return token;
-// }
->>>>>>> 2a74afd4efeb9e3cbad89b30c6bd18ecc2136a4f
-
-// int main(int argc, char *argv[]) {
-//     T_token r;
-//     while ((r = get_token())->type != END) {
-//         if (r->type == VAL) {
-//             if (r->value.val->type == NUM) {
-//                 printf("type: %d type: %d  value: %f \n", r->type, r->value.val->type, *r->value.val->value.num);
-//             } else {
-//                 printf("type: %d type: %d value: %s \n", r->type, r->value.val->type, r->value.val->value.var); 
-//             }
-//         } else if (r->type == NL) {
-//             puts("NL");
-//         } else if (r->type == COMP) {
-//             printf("type: %d  value: %d \n", r->type, r->value.comp->type);
-//         } else if (r->type == OPER) {
-//             printf("type: %d  value: %d \n", r->type, r->value.oper->type);
-//         } else if (r->type == T_IF) {
-//             printf("if type: %d \n", r->value.t_if->type);
-//         } else if (r->type == T_WHILE) {
-//             printf("while type: %d \n", r->value.t_while->type);
-//         }
-// }
-// }   
