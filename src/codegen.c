@@ -57,68 +57,41 @@ void generate(InstructionList* ins){
 
 
 void gencode_expression(T_expression expression){
-  //LHS + OPERATOR (+, -, *, /) + RHS
 
-  //if expression is a number n, push n
-  //if expression is a variable var, push var
+  generate(createInstruction(MOVSS, XMM0, XMM1));
 
   switch(operator):
-  case "+":
-    gencode_expression(LHS)
-    gencode_expression(RHS)
-    printf("add")
+  case "+":{
+		generate(createInstruction(ADDSS, XMM0, XMM1));
+	}
+	break;
 
-  case "-":
-    gencode_expression(LHS)
-    gencode_expression(RHS)
-    printf("sub")
+		case "-":{
+		generate(createInstruction(SUBSS, XMM0, XMM1));
+	}
+	break;
 
-  case "*":
-    gencode_expression(LHS)
-    gencode_expression(RHS)
-    printf("mul")
+  case "*":{
+		generate(createInstruction(MULSS, XMM0, XMM1));
+  }
+  break;
 
-  case "/":
-    gencode_expression(LHS)
-    gencode_expression(RHS)
-    printf("div")
+  case "/":{
+		generate(createInstruction(DIVSS, XMM0, XMM1));
+  }
+  break;
 
   default:
     return LogErrorV("invalid operator");
 }
 
+  generate(createInstruction(MOVSS, XMM1, XMM0));
+
+
+
 void gencode_statement(T_statement statement){
   //VAR + EQUAL SIGN + EXPRESSION
   gencode_expression(expression)
-  printf("mov")
+  printf("movss")
 
-}
-
-void gencode_conditional(T_conditional conditional){
-  //LHS + COMPARATOR (> < ! =) + RHS
-  switch(operator):
-  case ">":
-    printf("")
-  case "<":
-    printf("")
-  case "!":
-    printf("")
-  case "=":
-    printf("")
-  default:
-    return LogErrorV("invalid comparator");
-}
-
-void gencode_statement_list(T_statement_list statement_list){
-}
-
-void gencode_branch(T_branch branch){
- //compute expression put it on stack
- //negate what we comuputed - if true go to L1 else go to L2
-}
-
-void gencode_loop(T_loop loop){
-//insert L1 into code stream
-//compute expression put it on stack
-//negate what we computed - if true, go to L2 else continue compiling statements and then go to L1
 }
