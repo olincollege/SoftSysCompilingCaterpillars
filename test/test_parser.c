@@ -122,10 +122,15 @@ int main() {
     // }
 
     T_statement_list program = parse_statement_list(0);
-    GHashTable* vars = var_check(program);
+    T_NumVars num_vars = var_check(program);
+    GHashTable* vars = num_vars -> map;
+    GArray* nums = num_vars -> nums;
     print_list(program, 1);
     FILE *out_file = fopen("var_list.txt", "w");
     g_hash_table_foreach(vars, (GHFunc) print_var, (gpointer) out_file);
-    
+    for (int i = 0; i < nums -> len; i++) {
+        double* num = g_array_index(nums, double*, i);
+        printf("%f\n", *num);
+    }
     puts("done");
 }
