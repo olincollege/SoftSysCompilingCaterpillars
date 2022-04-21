@@ -1,7 +1,4 @@
 #include "../includes/static_checker.h"
-// #include "../includes/deep_copy.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 typedef struct S_loop_wd* T_loop_wd;
 typedef struct S_branch_wd* T_branch_wd;
@@ -19,3 +16,6 @@ struct S_branch_wd {
 void declare_vars(FILE* fptr, GHashTable* vars);
 void declare_var(gpointer key, gpointer value, gpointer user_data);
 void declare_constants(FILE* fptr, GArray* nums);
+void generate_while(FILE *fptr, T_loop loop);
+T_loop_wd create_loop_wd(T_loop loop);
+T_branch_wd create_branch_wd(T_branch branch);
