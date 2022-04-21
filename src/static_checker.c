@@ -1,13 +1,12 @@
 #include "../includes/static_checker.h"
 
-
 T_NumVars var_check(T_statement_list root) {
     guint i;
     gchar *contents = NULL;
     gboolean ret;
     gpointer key;
     GHashTable* map = g_hash_table_new(g_str_hash, g_str_equal);
-    GArray* nums = g_array_new(FALSE, FALSE, sizeof(double));
+    GArray* nums = g_array_new(FALSE, FALSE, sizeof(float));
     traverse_list(root, map, nums);
     T_NumVars num_vars = malloc(sizeof(T_NumVars));
     num_vars -> map = map;
@@ -48,7 +47,7 @@ void check_statement(T_statement statement, GHashTable* map, GArray* list) {
     //be an error and the insertion won't work
     check_expression(statement -> expression, map, list);
     //will do nothing if already exists, otherwise add
-    g_hash_table_insert(map, (gpointer) (statement -> var -> value.var), NULL);
+g_hash_table_insert(map, (gpointer) (statement -> var -> value.var), NULL);
 }
 
 void check_expression(T_expression exp, GHashTable* map, GArray* list) {
@@ -57,7 +56,7 @@ void check_expression(T_expression exp, GHashTable* map, GArray* list) {
                 checker_error(exp -> lhs -> value.var);
         }
     } else {
-        list = g_array_append_vals(list, (void*) exp -> lhs -> value.num, 1);
+        g_array_append_val(list, *(exp -> lhs -> value.num));
     }
     if (exp -> rhs) {
         check_expression(exp -> rhs, map, list);

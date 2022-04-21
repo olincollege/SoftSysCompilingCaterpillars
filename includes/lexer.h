@@ -27,7 +27,7 @@ struct S_token {
 struct S_val { //number and variable 
     enum {NUM, VAR} type;
     union {
-        double *num;
+        float *num;
         char *var;
     } value;
 };
@@ -61,7 +61,7 @@ T_token create_end_token();
 T_token create_var_token(char* val);
 T_token create_while_token(char* val);
 T_token create_if_token(char* val);
-T_token create_number_token(double n);
+T_token create_number_token(float n);
 T_token create_single_char_token(char c);
 T_token get_token();
 

@@ -9,7 +9,7 @@
 
 //initialize variables
 char identifier_str[LENGTH];
-double num_val;
+float num_val;
 int op;
 int last_char = ' ';
 
@@ -206,13 +206,13 @@ T_token create_var_token(char* val) {
 *
 *  @return T_token
 */
-T_token create_number_token(double n) {
+T_token create_number_token(float n) {
     T_token token = malloc(sizeof(*token));
     token->type = VAL;
     T_val val_token = malloc(sizeof(*val_token));
     token->value.val = val_token;
     token->value.val->type = NUM;
-    token->value.val->value.num = malloc(2); //WHY ARE WE ALLOCATING 2???
+    token->value.val->value.num = malloc(1); //WHY ARE WE ALLOCATING 2???
     *token->value.val->value.num = n;
     // printf("create: %f \n", *token->value.val->value.num);
     return token;
