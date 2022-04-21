@@ -1,41 +1,33 @@
-#include "../includes/parser.h"
-#include "../includes/deep_copy.h"
-//#include "../includes/codegen.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-int directive_num = 1;
-
-typedef struct S_loop_wd* T_loop_wd;
-typedef struct S_branch_wd* T_branch_wd;
-
-struct S_loop_wd {
-    T_loop loop;
-    int head_dir;
-};
-
-struct S_branch_wd {
-    T_branch branch;
-    int else_dir;
-};
+#include "../includes/codegen.h"
 
 int main(int argc, char *argv[]) {
-    FILE *fptr = fopen("codegen_out.s", "w");
-    /*make char array of vars*/
-    char **all_vars;
-    int all_vars_count;
-
-    /*add variables*/
-    declare_vars(fptr, all_vars, all_vars_count);
-
-    // Create main section
-    fprintf(fptr, "main:\n\t\tpush\trbp\n\t\tmov\t\trbp, rsp\n");
+    char* output_file = "codegen_out.s";
+    FILE *out_file = fopen(output_file, "w");
+    T_statement_list program = parse_statement_list(0);
+    puts("parsed");
+    T_NumVars num_vars = var_check(program);
+    GHashTable* vars = num_vars -> map;
+    GArray* nums = num_vars -> nums;
+    declare_vars(out_file, vars);
+    declare_constants(out_file, nums);
 }
 
-void declare_vars(FILE *fptr, char *vars[], int count) {
-    for (int i = 0; i < count; i++) {
-        fprintf(fptr, "%s:\n", vars[i]);
-        fprintf(fptr, "\t\t.zero\t4\n");
+void declare_vars(FILE* fptr, GHashTable* vars) {
+    g_hash_table_foreach(vars, (GHFunc) declare_var, (gpointer) fptr);
+}
+
+void declare_var(gpointer key, gpointer value, gpointer user_data) {
+    fprintf((FILE*) user_data, "%s:\n", (char*) key);
+    fprintf((FILE*) user_data, "\t\t.zero\t4\n");
+}
+
+void declare_constants(FILE* fptr, GArray* nums) {
+    int i = 0;
+    double num;
+    for (; i < nums -> len; i++) {
+        num = g_array_index(nums, float, i);
+        fprintf(fptr, ".LC%d:\n", i);
+        fprintf(fptr, "\t\t.long\t%a\n", num);
     }
 }
 
