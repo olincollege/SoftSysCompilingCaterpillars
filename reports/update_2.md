@@ -14,13 +14,14 @@ Grant has wanted to develop a moderate ability to translate code into assembly b
 
 Abitamim wants to learn assembly and how code changes can result in assembly changes. He also wants to learn how to structure code generation to allow for efficient traversal of the syntax tree.
 
-3) What have you done to get started?  Have you found the resources you need, do you have a plan to find them, or do you need help?  If you found any resources you think I should add to the list on the class web page, please email them to me.
+## Current Progress and Resources
 
 Abitamim has developed a static checker to validate the output from the parser. Meanwhile Grant has written assembly code for our test file (test3) by hand and developed an architecture for the desired code generation output. Rishita has been working on developing the assembly code generation code by translating LLVM code. There have been hiccups during this process as LLVM does not translate to C as effectively as she had originally thought, therefore her current focus is to write the code from scratch. 
 
 We currently have all the resources we would need and are on track to complete our project by the deadline. 
 
-4) What are you working on now?  Describe at least three concrete tasks that you are working on, and identify which members of the team are working on them.  For each one, what is the "definition of done"; that is, what will you produce to demonstrate that the task is done?
+## Next Steps
 
-Rishita is working on code generation for expressions and statements.
-Grant is working on code generation for if/else statements. 
+Rishita is working on code generation for expressions and statements. The task would be cosidered complete if the code generation file is able to output the assembly code for test3 as desrired by the architecture developed by Grant. 
+
+Grant is working on code generation for if/else statements. The task would be cosidered complete if the code generation file is able to output the assembly code for test3 as desrired by the architecture developed by Grant. 
