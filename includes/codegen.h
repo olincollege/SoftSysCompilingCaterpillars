@@ -6,11 +6,13 @@ typedef struct S_branch_wd* T_branch_wd;
 struct S_loop_wd {
     T_loop loop;
     int head_dir;
+    int end_dir;
 };
 
 struct S_branch_wd {
     T_branch branch;
     int else_dir;
+    int out_dir;
 };
 
 void declare_vars(FILE* fptr, GHashTable* vars);
