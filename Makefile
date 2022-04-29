@@ -2,11 +2,11 @@ LEXERS = src/lexer.c includes/lexer.h
 PARSERS = src/parser.c includes/parser.h includes/lexer.h
 TESTER = test/test_parser.c includes/parser.h
 
-viz3: run_test3 test/test3_out.txt
-	@cat test/test3_out.txt | python3 test/visualizer.py > test/viz3_out.txt && xdg-open nx_test.png
+viz1:
+	@gcc -o code_gen src/codegen_pseudo.c src/parser.c src/lexer.c src/deep_copy.c src/static_checker.c includes/static_checker.h `pkg-config --libs --cflags glib-2.0` && cat test/test1 | ./code_gen
 
-run_test3: test_parser
-	@cat test/test3 | ./test_parser > test/test3_out.txt
+run_test1: test_parser
+	@cat test/test1 | ./test_parser > test/test1_out.txt
 
 test_parser: $(TESTER) parser.o lexer.o deep_copy.o src/static_checker.c
 	@gcc -o test_parser test/test_parser.c parser.o lexer.o deep_copy.o src/static_checker.c includes/static_checker.h `pkg-config --libs --cflags glib-2.0`;

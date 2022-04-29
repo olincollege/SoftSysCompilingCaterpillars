@@ -1,9 +1,9 @@
 #include "../includes/codegen.h"
 
-//how to run: gcc -o code_gen src/codegen_pseudo.c src/parser.c src/lexer.c src/deep_copy.c src/static_checker.c includes/static_checker.h `pkg-config --libs --cflags glib-2.0` && cat test/test3 | ./code_gen
+//how to run: gcc -o code_gen src/codegen_pseudo.c src/parser.c src/lexer.c src/deep_copy.c src/static_checker.c includes/static_checker.h `pkg-config --libs --cflags glib-2.0` && cat test/test1 | ./code_gen
 
 int directive_num = 1;
-int curr_const = 1;
+int curr_const = 0;
 
 int main(int argc, char *argv[]) {
     char* output_file = "codegen_out.s";
@@ -14,7 +14,11 @@ int main(int argc, char *argv[]) {
     GHashTable* vars = num_vars -> map;
     GArray* nums = num_vars -> nums;
     declare_vars(out_file, vars);
+    fprintf(out_file, "main:\n");
+    generate_statement_list(out_file, program);
+    make_end(out_file);
     declare_constants(out_file, nums);
+    puts("Done!");
 }
 
 void declare_vars(FILE* fptr, GHashTable* vars) {
@@ -23,7 +27,7 @@ void declare_vars(FILE* fptr, GHashTable* vars) {
 
 void declare_var(gpointer key, gpointer value, gpointer user_data) {
     fprintf((FILE*) user_data, "%s:\n", (char*) key);
-    fprintf((FILE*) user_data, "\t\t.zero\t4\n");
+    fprintf((FILE*) user_data, "\t.zero\t4\n");
 }
 
 void declare_constants(FILE* fptr, GArray* nums) {
@@ -35,76 +39,153 @@ void declare_constants(FILE* fptr, GArray* nums) {
         char hex[20];
         snprintf(hex, sizeof(hex), "0x%x", *(unsigned int*)&num);
         fprintf(fptr, ".LC%d:\n", i);
-        // fprintf(fptr, "\t\t.long\t%ld\n", strtol(hex, NULL, 10));
-        fprintf(fptr, "\t\t.long\t%d\n", (int)strtol(hex, NULL, 0));
+        // fprintf(fptr, "\t.long\t%ld\n", strtol(hex, NULL, 10));
+        fprintf(fptr, "\t.long\t%d\n", (int)strtol(hex, NULL, 0));
     }
 }
 
 void generate_branch(FILE *fptr, T_branch branch) {
-    T_branch_wd branch_wd = create_branch_wd(branch);
-    generate_conditional(fptr, branch_wd->branch->cond);
-    switch (branch_wd->branch->cond->comparator->type) {
+    puts("creating branch");
+    // T_branch_wd branch_wd = create_branch_wd(branch);
+    int else_dir = directive_num++;
+    int out_dir = directive_num++;
+    puts("created branch");
+    generate_conditional(fptr, branch->cond);
+    puts("generated conditional");
+    switch (branch->cond->comparator->type) {    
     case 0:
-        fprint(fptr, "\t\tjne\t\t");
+        fprintf(fptr, "\tjne\t");
         break;
     case 1:
-        fprint(fptr, "\t\tjge\t\t");
+        fprintf(fptr, "\tjge\t");
         break;
     case 2:
-        fprint(fptr, "\t\tjle\t\t");
+        fprintf(fptr, "\tjle\t");
         break;
     case 3:
-        fprint(fptr, "\t\tjeq\t\t");
+        fprintf(fptr, "\tjeq\t");
     }
-    fprintf(fptr, ".L%d\n", branch_wd->else_dir);
-    generate_statement_list(branch_wd->branch->if_exp);
-    fprintf(fptr, ".L%d\n", branch_wd->else_dir);
-    generate_statement_list(branch_wd->branch->else_exp);
-    fprintf(fptr, ".L%d\n", branch_wd->out_dir);
+    fprintf(fptr, ".L%d\n", else_dir);
+    generate_statement_list(fptr, branch->if_exp);
+    fprintf(fptr, "\tjmp\t.L%d\n", out_dir);
+    fprintf(fptr, ".L%d\n", else_dir);
+    generate_statement_list(fptr, branch->else_exp);
+    fprintf(fptr, ".L%d\n", out_dir);
 }
 
 void generate_while(FILE *fptr, T_loop loop) {
-    T_loop_wd loop_wd = create_loop_wd(loop);
-    fprintf(fptr, ".L%d:\n",directive_num++);
-    generate_conditional(fptr, loop_wd->loop->cond);
-    switch (loop_wd->loop->cond->comparator->type) {
+    puts("generating while");
+    int head_dir = directive_num++;
+    int out_dir = directive_num++;
+    puts("generated while");
+    fprintf(fptr, ".L%d:\n",head_dir);
+    puts("going to make conditional");
+    generate_conditional(fptr, loop->cond);
+    puts("made conditional");
+    switch (loop->cond->comparator->type) {
         case 0:
-            fprint(fptr, "\t\tjne\t\t");
+            fprintf(fptr, "\tjne\t");
             break;
         case 1:
-            fprint(fptr, "\t\tjge\t\t");
+            fprintf(fptr, "\tjge\t");
             break;
         case 2:
-            fprint(fptr, "\t\tjle\t\t");
+            fprintf(fptr, "\tjle\t");
             break;
         case 3:
-            fprint(fptr, "\t\tjeq\t\t");
+            fprintf(fptr, "\tjeq\t");
     }
-    fprintf(fptr, ".L%d\n", loop_wd->end_dir);
-    generate_statement_list(loop_wd->loop->exp);
-    fprintf(fptr, "\t\tjmp\t\t.L%d\n", loop_wd->head_dir);
+    fprintf(fptr, ".L%d\n", out_dir);
+    generate_statement_list(fptr, loop->exp);
+    fprintf(fptr, "\tjmp\t.L%d\n", head_dir);
 }
 
 void generate_conditional(FILE *fptr, T_conditional cond) {
-    generate_expression(cond->lhs, 0);
-    generate_expression(cond->rhs, 1);
-    fprintf(fptr, "\t\tcomiss\nxmm0, xmm1\n");
+    puts("generating expressions\n");
+    generate_expression(fptr, cond->lhs, 0);
+    generate_expression(fptr, cond->rhs, 1);
+    fprintf(fptr, "\tcomiss\txmm0, xmm1\n");
 }
 
-void generate_expression(T_expression side, int reg) {
-    if (side->rhs == NULL) {
-        switch (side->lhs->type) {
-            case 0:
-                fprintf(fptr, "\t\tmovss\txmm%d, DWORD PTR .LC%d[rip]", reg, curr_const++);
+void generate_expression(FILE *fptr, T_expression side, int reg) {
+    switch (side->lhs->type) {
+            case NUM:
+                fprintf(fptr, "\tmovss\txmm%d, DWORD PTR .LC%d[rip]\n", reg, curr_const++);
                 break;
-            case 1:
-                fprintf(fptr, "\t\tmovss\txmm%d, DWORD PTR %s[rip]", reg, side->lhs->value);
+            case VAR:
+                fprintf(fptr, "\tmovss\txmm%d, DWORD PTR %s[rip]\n", reg, side->lhs->value.var);
+    }
+    puts("made lhs");
+    while (side->rhs != NULL) {
+        
+        switch (side->rhs->lhs->type) {
+            case NUM:
+                fprintf(fptr, "\tmovss\txmm%d, DWORD PTR .LC%d[rip]\n", reg + 1, curr_const++);
+                break;
+            case VAR:
+                fprintf(fptr, "\tmovss\txmm%d, DWORD PTR %s[rip]\n", reg + 1, side->rhs->lhs->value.var);
         }
-    } else {
-        generate_expression(side->rhs, reg + 1);
+        switch(side->operator->type) {
+            case ADD:
+                fprintf(fptr, "\taddss\t");
+                break;
+            case SUB:
+                fprintf(fptr, "\tsubss\t");
+                break;
+            case MULT:
+                fprintf(fptr, "\tmulss\t");
+                break;
+            case DIV:
+                fprintf(fptr, "\tdivss\t");
+        }
+        fprintf(fptr, "xmm%d, xmm%d\n", reg, reg + 1);
+        side = side->rhs;
     }
 }
 
+void generate_statement(FILE *fptr, T_statement statement) {
+    generate_expression(fptr, statement->expression, 0);
+    if (statement->var->type == VAR) {
+        fprintf(fptr, "\tmovss\tDWORD PTR %s[rip], xmm0\n", statement->var->value.var);
+    }
+}
+
+void generate_statement_list(FILE *fptr, T_statement_list sl) {
+    puts("enter generate_statement_list");
+    while (sl != NULL && sl->statement_list!=NULL) {
+        puts("making list");
+        switch(sl->type) {
+            case STATE:
+                generate_statement(fptr, sl->statement.statement);
+                break;
+            case BRANCH:
+                puts("sl to branch gen");
+                generate_branch(fptr, sl->statement.branch);
+                break;
+            case LOOP:
+                generate_while(fptr, sl->statement.loop);
+        }
+        sl = sl->statement_list;
+    }
+    puts("final statement");
+    if (sl != NULL) {
+        switch(sl->type) {
+            case STATE:
+                generate_statement(fptr, sl->statement.statement);
+                break;
+            case BRANCH:
+                generate_branch(fptr, sl->statement.branch);
+                break;
+            case LOOP:
+                generate_while(fptr, sl->statement.loop);
+        }
+    }
+}
+
+void make_end(FILE *fptr) {
+    fprintf(fptr, ".L%d:\n", directive_num);
+    fprintf(fptr, "\tnop\n\tmov eax, 0\n\tpop rbp\n\tret\n");
+}
 
 T_loop_wd create_loop_wd(T_loop loop) {
     T_loop_wd new_loop = malloc(sizeof(*new_loop));

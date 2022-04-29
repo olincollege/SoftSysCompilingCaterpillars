@@ -18,6 +18,12 @@ struct S_branch_wd {
 void declare_vars(FILE* fptr, GHashTable* vars);
 void declare_var(gpointer key, gpointer value, gpointer user_data);
 void declare_constants(FILE* fptr, GArray* nums);
+void generate_branch(FILE *fptr, T_branch branch);
 void generate_while(FILE *fptr, T_loop loop);
+void generate_conditional(FILE *fptr, T_conditional cond);
+void generate_expression(FILE *fptr, T_expression side, int reg);
+void generate_statement(FILE *fptr, T_statement statement);
+void generate_statement_list(FILE *fptr, T_statement_list sl);
+void make_end(FILE *fptr);
 T_loop_wd create_loop_wd(T_loop loop);
 T_branch_wd create_branch_wd(T_branch branch);
