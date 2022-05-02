@@ -2,7 +2,7 @@
 Rishita Sarin, Grant Miner, Abitamim Bharmal
 
 ## Project Goal
-This project, we built on our our toy compiler project from last sprint and added static checking and code generation capabilities to it. We took the parser output to generate assembly code in x86. This assembly code can be put into pre-existing webpages such as https://godbolt.org/ to execute it. Our lower bound was to have a functional static check and add code generation for variable declaration, arithmetic operations with two operands and one operator, and if/else statements. Time permitting, our upper bound was be to execute the same for while loops. We were able to achieve both our lower bound and upper bound goals. 
+This project, we built on our our toy compiler project from last sprint and added static checking and code generation capabilities to it. We took the parser output to generate assembly code in x86. Our lower bound was to have a functional static check and add code generation for variable declaration, arithmetic operations with two operands and one operator, and if/else statements. Time permitting, our upper bound was be to execute the same for while loops. We were able to achieve both our lower bound and upper bound goals. 
 
 ## Learning Goals
 
@@ -16,25 +16,21 @@ Abitamim wanted to learn assembly and how code changes can result in assembly ch
 
 ## Our Work
 
-Stage 1 - Research
-look at resources on what is assembly code, how to generate it, what is x86. 
-read through and rewrote the code examples of code generation - toy compiler on github and a bunch of other open source compiler codes in different languages
-videos as well on how registers work in assembly code
+### Stage 1 - Research
+We began by looking at lectures and YouTube videos regarding the basics of what is assembly code and how to go from a parser output to produce assembly code in x86. We read through and rewrote the code generation code examples provided in toy compiler lectures and open source compilers which can be found in our resources tab. Please note that the open source compilers were written in various languages and gave us he opportunity to translate into C. Rewriting code allowed us to gain more insight on understanding the inner workings of assembly code generation and allowed us to design our assembly code syntax accordingly. 
 
-Research for static checker? 
+Since we had learned about static checkers in class, we did not require additional resources regarding this topic and we focused on developing the code directly. 
 
-Stage 2 - Static Checker
+### Stage 2 - Static Checker
 The purpose of a static checker is to detect and report any syntactic and semantic programming errors. Our static checker begins by traversing though a list of statements to make sure no variables are used before they are declared. If they are, there will be an error and the insertion will not work. For every variable in an expression, the static checker determines if it exists in a hash map, it if does, save the value to the variable struct. If the current value is a number, add it to the value list. Then, check the remaining part of the expression. 
 
-Similarly, check if the left hand side and right hand side expressions are valid in order to validate a conditional. 
-Validate all conditionals in the if and else statements to validate a branch. 
-Validate the conditional for a while loop to validate it. 
+Similarly, the checker determines if the left hand side (LHS) and right hand side (RHS) expressions are valid in order to validate a conditional. Validating all conditionals in the if and else statements allows the static checker to validate a branch. Validating the conditionals for a while loop allows for validation of while loop functionality. 
 
- 
-Stage 3 - Code Generation
-take the static checked parser output and convert it to assembly code
+### Stage 3 - Code Generation
+The purpose of code generation is to take in the static checked parser output and covert it to assembly code (and s file) which may be used by the OS to perform the instructions provided by a program. 
+
 Varaibles are stored in a hash table
-set up levels for reading assembly code
+numbers are converted to hex and then long to be constants
 start with expression then build up to statement, then write conditional and statement list. from there, branch and while loop. 
 and then write code to signify end of s file. 
 
@@ -54,3 +50,10 @@ A statement list consists of a statement, branch, or loop.
 ## Design Decision - Assembly Syntax
 
 ## Reflection
+
+### Rishita
+learned a lot - spent a lot of time researching and trying to rewrite code but got a lil bogged down by trying to translate. asking for help and coworking was very helpful. going through code and commenting and documentating have a better understanding. def want to work on scoping and asking for help earlier on. this project was better managed than the last iteration in terms of scoping and time management. excited to see the compiler go from nothing to be running and producing assembly code! Twas a great learning experience - process wise, having dedicated coworking and checkin times made the process much more smoother. debugging was fun too. 
+
+###Grant
+
+###Abitamim
