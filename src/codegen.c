@@ -68,31 +68,28 @@ void declare_constants(FILE* fptr, GArray* nums) {
  */
 
 void generate_branch(FILE *fptr, T_branch branch) { 
-    puts("creating branch");
     int else_dir = directive_num++; //move to next directive block for else
     int out_dir = directive_num++; //move to next directive for out 
-    puts("created branch");
     generate_conditional(fptr, branch->cond);  
-    puts("generated conditional");
     switch (branch->cond->comparator->type) {    
-    case 0:
+    case EQ:
         fprintf(fptr, "\tjne\t"); //arg 1 != arg2
         break;
-    case 1:
+    case LT:
         fprintf(fptr, "\tjge\t"); //arg2 >= arg1
         break;
-    case 2:
+    case GT:
         fprintf(fptr, "\tjle\t"); //arg2 <= arg1
         break;
-    case 3:
+    case NEQ:
         fprintf(fptr, "\tjeq\t"); //arg1 == arg2
     }
-    fprintf(fptr, ".L%d\n", else_dir); //new directive block for else instructions
+    fprintf(fptr, "L%d:\n", else_dir); //new directive block for else instructions
     generate_statement_list(fptr, branch->if_exp); //generate statement list for if expression
-    fprintf(fptr, "\tjmp\t.L%d\n", out_dir); //out of branch
-    fprintf(fptr, ".L%d\n", else_dir); //new directive block for else instructions
+    fprintf(fptr, "\tjmp\tL%d\n", out_dir); //out of branch
+    fprintf(fptr, "L%d:\n", else_dir); //new directive block for else instructions
     generate_statement_list(fptr, branch->else_exp); //generate statement list for else expression
-    fprintf(fptr, ".L%d\n", out_dir); //out of branch
+    fprintf(fptr, "L%d:\n", out_dir); //out of branch
 }
 
 /**
@@ -102,30 +99,27 @@ void generate_branch(FILE *fptr, T_branch branch) {
  * 
  */
 void generate_while(FILE *fptr, T_loop loop) { 
-    puts("generating while");
     int head_dir = directive_num++;
     int out_dir = directive_num++;
-    puts("generated while");
-    fprintf(fptr, ".L%d:\n",head_dir);
-    puts("going to make conditional");
+    fprintf(fptr, "L%d:\n",head_dir);
     generate_conditional(fptr, loop->cond);
-    puts("made conditional");
     switch (loop->cond->comparator->type) {
-        case 0:
+        case EQ:
             fprintf(fptr, "\tjne\t"); //arg 1 != arg2
             break;
-        case 1:
+        case LT:
             fprintf(fptr, "\tjge\t"); //arg2 >= arg1
             break;
-        case 2:
+        case GT:
             fprintf(fptr, "\tjle\t"); //arg2 <= arg1
             break;
-        case 3:
+        case NEQ:
             fprintf(fptr, "\tjeq\t"); //arg1 == arg2
     }
-    fprintf(fptr, ".L%d\n", out_dir); 
+    fprintf(fptr, "L%d\n", out_dir); 
     generate_statement_list(fptr, loop->exp); //generate statement list for the expression in the while loop
-    fprintf(fptr, "\tjmp\t.L%d\n", head_dir);
+    fprintf(fptr, "\tjmp\tL%d\n", head_dir);
+    fprintf(fptr, "L%d:\n", out_dir);
 }
 
 /**
@@ -135,7 +129,6 @@ void generate_while(FILE *fptr, T_loop loop) {
  * 
  */
 void generate_conditional(FILE *fptr, T_conditional cond) {
-    puts("generating expressions\n");
     generate_expression(fptr, cond->lhs, 0); //generate expression for left side condition
     generate_expression(fptr, cond->rhs, 1); //generate expression for right side condition
     fprintf(fptr, "\tcomiss\txmm0, xmm1\n"); //compare arg1 and arg2
@@ -155,7 +148,6 @@ void generate_expression(FILE *fptr, T_expression side, int reg) {
             case VAR:
                 fprintf(fptr, "\tmovss\txmm%d, DWORD PTR %s[rip]\n", reg, side->lhs->value.var);
     }
-    puts("made lhs");
     while (side->rhs != NULL) { //right side of expression
         
         switch (side->rhs->lhs->type) {
@@ -203,15 +195,12 @@ void generate_statement(FILE *fptr, T_statement statement) {
  * 
  */
 void generate_statement_list(FILE *fptr, T_statement_list sl) { 
-    puts("enter generate_statement_list");
     while (sl != NULL && sl->statement_list!=NULL) { //while statement list is not empty, generate
-        puts("making list");
         switch(sl->type) {
             case STATE:
                 generate_statement(fptr, sl->statement.statement);
                 break;
             case BRANCH:
-                puts("sl to branch gen");
                 generate_branch(fptr, sl->statement.branch);
                 break;
             case LOOP:
@@ -219,7 +208,6 @@ void generate_statement_list(FILE *fptr, T_statement_list sl) {
         }
         sl = sl->statement_list;
     }
-    puts("final statement");
     if (sl != NULL) {
         switch(sl->type) {
             case STATE:
@@ -240,13 +228,6 @@ void generate_statement_list(FILE *fptr, T_statement_list sl) {
  * 
  */
 void make_end(FILE *fptr) { 
-    fprintf(fptr, ".L%d:\n", directive_num);
+    fprintf(fptr, "L%d:\n", directive_num);
     fprintf(fptr, "\tnop\n\tmov eax, 0\n\tpop rbp\n\tret\n");
-}
-
-T_loop_wd create_loop_wd(T_loop loop) {
-    T_loop_wd new_loop = malloc(sizeof(*new_loop));
-    new_loop -> loop = loop;
-    new_loop -> head_dir = directive_num++;
-    new_loop -> end_dir = directive_num++;
 }

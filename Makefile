@@ -2,7 +2,13 @@ LEXERS = src/lexer.c includes/lexer.h
 PARSERS = src/parser.c includes/parser.h includes/lexer.h
 TESTER = test/test_parser.c includes/parser.h
 
-viz1:
+assemble: codegen
+	@cat test/test1 | ./codegen
+
+codegen:
+	@gcc -o codegen src/codegen.c src/parser.c src/lexer.c src/deep_copy.c src/static_checker.c includes/static_checker.h `pkg-config --libs --cflags glib-2.0`
+
+codegen_pseudo:
 	@gcc -o code_gen src/codegen_pseudo.c src/parser.c src/lexer.c src/deep_copy.c src/static_checker.c includes/static_checker.h `pkg-config --libs --cflags glib-2.0` && cat test/test1 | ./code_gen
 
 run_test1: test_parser
@@ -24,4 +30,4 @@ parser.o: $(PARSERS) deep_copy.o includes/deep_copy.h
 .PHONY: clean
 
 clean:
-	rm test_parser test/*.txt nx_test.png
+	@rm -f test_parser test/*.txt nx_test.png codegen code_gen
