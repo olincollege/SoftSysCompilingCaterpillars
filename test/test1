@@ -1,0 +1,15 @@
+if 1<2
+x = 1 + 2
+while x < 10
+x = x * 3 - 1 / 2
+endwhile
+else
+z = x + 3
+endif
+while z > x
+z = x - 1
+if z = x + 2
+z = x
+endif
+endwhile
+y = z + x
