@@ -2,13 +2,17 @@
 Rishita Sarin, Grant Miner, Abitamim Bharmal
 
 ## Project Goal
-This project, we built on our our toy compiler project from last sprint and added static checking and code generation capabilities to it. We took the parser output to generate assembly code in x86. Our lower bound was to have a functional static check and add code generation for variable declaration, arithmetic operations with two operands and one operator, and if/else statements. Time permitting, our upper bound was be to execute the same for while loops. We were able to achieve both our lower bound and upper bound goals. 
+The goal of this project was to develop static checking and assembly code generation capabilities in our compiler. A compiler takes source code written in high level languages such as python and C and converts it into machine code which can be interpreted by the CPU of the computer. Compilers have a front-end and back-end interface.
+
+Our basic toy compiler performs arithmetic functions namely addition, subtraction, multiplication, and division on floating numbers (one operation at a time - example 1 + 2 would yield 3) and assign numerical values to variables (example a = 4). It also has if/else statement and while loop interpretation functionality to perform advanced operations.
+
+This project, we took the parser output to generate assembly code in x86. Our lower bound was to have a functional static check and add code generation for variable declaration, arithmetic operations with two operands and one operator, and if/else statements. Time permitting, our upper bound was be to execute the same for while loops. We were able to achieve both our lower bound and upper bound goals. 
 
 ## Learning Goals
 
 We all shared the same learning goals this project. Our primary goal was to learn and gain experience in x86 assembly language. We were also hope to develop our skills of working in a team based software project with a special focus in delegation of tasks, keeping up with documentation, and maintaing communication within the team via regular syncs.
 
-Rishita was originally also interested in pursuing the tasks related to being a PM on a software project team. However, as it turns out there are not too many PM related tasks within this team. We all mutually delegated tasks and maintained communication. Thereby, Rishita pivoted her learning goals to gain experience in writing code from scratch in C (in addition to learning about x86). 
+Rishita was originally also interested in pursuing the tasks related to being a PM on a software project team. However, as it turns out there are not too many PM related tasks within this team. We all mutually delegated tasks and maintained communication. Thereby, Rishita pivoted her learning goals to gain experience in writing code from scratch in C (in addition to learning about x86).
 
 Grant wanted to develop a moderate ability to translate code into assembly by hand, and he was looking forward to validating the code generation for the test files.
 
@@ -27,25 +31,24 @@ The purpose of a static checker is to detect and report any syntactic and semant
 Similarly, the checker determines if the left hand side (LHS) and right hand side (RHS) expressions are valid in order to validate a conditional. Validating all conditionals in the if and else statements allows the static checker to validate a branch. Validating the conditionals for a while loop allows for validation of while loop functionality. 
 
 ### Stage 3 - Code Generation
-The purpose of code generation is to take in the static checked parser output and covert it to assembly code (and s file) which may be used by the OS to perform the instructions provided by a program. 
+The purpose of code generation is to take in the static checked parser output and covert it to assembly code (and s file) which may be used by the OS to perform the instructions provided by a program. We began developing the assembly code generation code by starting from the least to most complex unit that needed to be presented in the assembly code s file. 
 
-Varaibles are stored in a hash table
-numbers are converted to hex and then long to be constants
-start with expression then build up to statement, then write conditional and statement list. from there, branch and while loop. 
-and then write code to signify end of s file. 
+#### I envision this is where we add snippets of code for each function?
 
-A branch consists of a conditional and a statement list. If there is an "else" statement, it also includes another branch nested inside.
+We begin by storing variables in hash tables and clear the next four bytes of memory for each variable. 
 
-A loop consists of a conditional and the statements within.
+Next, any numbers are converted from a float to hex and hex to int to be presented as a constant in the assembly code. 
 
-A conditional contains a left hand side, the comparator, and a right hand side.
+Once we had the variables and numbers stored, we expanded to coding for an expression which contains any two operands seperated by an operator. 
 
-An expression contains two operands separated by an operator.
- 
-A statement contains a value or variable, an equal sign, and a right hand side.
+The next steps involved presenting a statement in x86 which contains a value or variable, an equal sign, and a right hand side expression.
 
-A statement list consists of a statement, branch, or loop.
- 
+This was followed by conditionals (a left hand side expression, the comparator, and a right hand side expression) and statement lists (a list containing a statement, branch, or a while loop).
+
+From here, we coded are most complex units which were branches (an "if" statement which is a conditional and a statement list. If there is an "else" statement, it also includes another branch nested inside.) and while loops (a conditional and the statements within). 
+
+Finally, to signify the end of assembly code in a s file, we # describe make_end function.
+
 
 ## Design Decision - Assembly Syntax
 
