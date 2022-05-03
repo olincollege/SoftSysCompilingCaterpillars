@@ -28,9 +28,17 @@ Since we had learned about static checkers in class, we did not require addition
 The majority of the guidance for the general syntax was informed by code translations performed using [GodBolt.org](https://www.godbolt.org). Many test scripts were entered into the tool in C syntax. We analyzed the output of this tool to develop the general structures of different code structures such as if/else branches and while loops. We also used the tool to gain an understanding of how to declare our variables and constants and also how to begin and end the assembly file. We also relied on a [guide](https://www.cs.virginia.edu/~evans/cs216/guides/x86.html) from the University of Virginia to understand the available registers and basic commands.
 
 ### Stage 2 - Static Checker
-The purpose of a static checker is to detect and report any syntactic and semantic programming errors. Our static checker begins by traversing though a list of statements to make sure no variables are used before they are declared. If they are, there will be an error and the insertion will not work. For every variable in an expression, the static checker determines if it exists in a hash map, it if does, save the value to the variable struct. If the current value is a number, add it to the value list. Then, check the remaining part of the expression. 
+The purpose of a static checker is to detect and report any syntactic and
+semantic programming errors. Our static checker begins by traversing though the
+tree to make sure no variables are used before they are declared. If they are, there
+will be an error thrown. For every variable in an
+expression, the static checker determines if it exists in a hash map, it if
+does, it continues. If the expression is part of a statement, after checking the
+expression, the variable the expression is being assigned to is added to the
+hash map. If it is already present there, it does nothing. Every number in an
+expression is added to the value list.
 
-Similarly, the checker determines if the left hand side (LHS) and right hand side (RHS) expressions are valid in order to validate a conditional. Validating all conditionals in the if and else statements allows the static checker to validate a branch. Validating the conditionals for a while loop allows for validation of while loop functionality. 
+The checker determines if the left hand side (LHS) and right hand side (RHS) expressions are valid in a conditional. Validating all conditionals in the if and else statements allows the static checker to validate a branch. Validating the conditionals for a while loop allows for validation of while loop functionality. 
 
 ### Stage 3 - Code Generation
 The purpose of code generation is to take in the static checked parser output and covert it to assembly code (a .s file) which may be used by the OS to perform the instructions provided by a program. We began developing the assembly code generation code by starting from the least to most complex unit that needed to be presented in the assembly code .s file. 
@@ -177,10 +185,23 @@ Another key decision we made was in the way we crafted our if/else statements an
 ## Reflection
 
 ### Rishita
-learned a lot - spent a lot of time researching and trying to rewrite code but got a lil bogged down by trying to translate. asking for help and coworking was very helpful. going through code and commenting and documentating have a better understanding. def want to work on scoping and asking for help earlier on. this project was better managed than the last iteration in terms of scoping and time management. excited to see the compiler go from nothing to be running and producing assembly code! Twas a great learning experience - process wise, having dedicated coworking and checkin times made the process much more smoother. debugging was fun too. 
+learned a lot - spent a lot of time researching and trying to rewrite code but got a lil bogged down by trying to translate. asking for help and coworking was very helpful. going through code and commenting and documentating have a better understanding. def want to work on scoping and asking for help earlier on. this project was better managed than the last iteration in terms of scoping and time management. Excited to see the compiler go from nothing to be running and producing assembly code! Twas a great learning experience - process wise, having dedicated coworking and checkin times made the process much more smoother. debugging was fun too. 
 
 ### Grant
 
 I came into this project with a basic understanding of how assembly instructions and different registers are structured, but I did not know anything about x86. When doing the code generation by hand, I found myself spotting important design decisions we needed to make. After several whiteboards and many sheets of printer paper were filled with assembly, I already felt proud. When we moved into the implementation of the code generation, I was excited. I wish I had spent more time thinking about the implemenation. I'm not sure that fprintf() was the best implementation method for writing our commands into an output file, and I felt like some of the moves I made were done without much consideration for future steps, unlike the architectural decisions we made in the first phase of this project. Despite all this, as each new function proved to be running, I was given dopamine hit after dopamine hit, culminating in a moment of triumph when the generator spat out the expected code for the file it was fed. I am very proud of the work I have done on this project, but there is definitely more room to extend this. I look forward to augmenting this basic compiler in the near future.
 
 ###Abitamim
+ I came into the project knowing nothing about assembly. I learned a lot about
+ how various operations, such as loops, branches, and arithmetics, are created
+ in assembly. I also became far more proficient at using more advanced data
+ structures by implementing the static checker with glib, along with the code
+ generation for the constants and variables. I initally wanted to build an
+ iterator for the tree, which would have helped me learn how to best structure
+ code generation. However, this ended up being more complicated than expected,
+ since there could be an unknown number of layers, which would have required
+ building a stack, rather than using recursion and exploiting the stack provided
+ by the OS. When the program finally generated assembly code, however, all the
+ work we have done over the semester was validated and I was elated! I am happy
+ with how this project has gone, and hope to learn how to build more
+ sophisticated compilers in the future.
