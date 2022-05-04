@@ -18,18 +18,20 @@
 
 ## Assembly Language and Code Generation
 
-1) Hello World in x86 - https://www.youtube.com/watch?v=dkjfZyJvO0I
+1) Hello World in x86 to give an understanding of how to write a basic program in x86- https://www.youtube.com/watch?v=dkjfZyJvO0I
 
-2) Intro to x86 - Walks through a basic program https://www.youtube.com/watch?v=wLXIWKUWpSs
+2) Intro to x86 - Walks through a basic program with variables and integers https://www.youtube.com/watch?v=wLXIWKUWpSs
 
 3) Intro to x86 Part 2 - Walks through a more complicated program https://www.youtube.com/watch?v=cFGJhn97e3s
 
-4) Cheat Sheet of x86 Commands - https://scadahacker.com/library/Documents/Cheat_Sheets/Programming%20-%20x86%20Instructions%201.pdf
+4) Cheat Sheet of x86 Commands to design our assembly syntax - https://scadahacker.com/library/Documents/Cheat_Sheets/Programming%20-%20x86%20Instructions%201.pdf
 
-5) Wikipedia for x86 Assembly Language https://en.wikipedia.org/wiki/X86_assembly_language#Syntax
+5) Wikipedia for x86 Assembly Language for more background knowledge https://en.wikipedia.org/wiki/X86_assembly_language#Syntax
 
-6) Wikipedia for Code Generation - https://en.wikipedia.org/wiki/Code_generation_(compiler)
+6) Wikipedia for Code Generation for more background knowledge - https://en.wikipedia.org/wiki/Code_generation_(compiler)
 
-7) LLVM For Code Generation - https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/LangImpl03.html
+7) LLVM For Code Generation with code in C++ (attempted to translate this to C) - https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/LangImpl03.html
 
-8) Code Generation Introduction - https://www.methodsandtools.com/archive/archive.php?id=86
+8) Code Generation Introduction Article to learn more about the process of going from parsing to assembly code - https://www.methodsandtools.com/archive/archive.php?id=86
+
+9)  Lecture on Assembly Code in x86 - https://www.cs.virginia.edu/~evans/cs216/guides/x86.html
