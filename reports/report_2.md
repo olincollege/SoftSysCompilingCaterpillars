@@ -21,21 +21,16 @@ Abitamim wanted to learn assembly and how code changes can result in assembly ch
 ## Our Work
 
 ### Stage 1 - Research
-We began by looking at lectures and YouTube videos regarding the basics of what is assembly code and how to go from a parser output to produce assembly code in x86. We read through and rewrote the code generation code examples provided in toy compiler lectures and open source compilers which can be found in our resources tab. Please note that the open source compilers were written in various languages and gave us he opportunity to translate into C. Rewriting code allowed us to gain more insight on understanding the inner workings of assembly code generation and allowed us to design our assembly code syntax accordingly. 
+We began by looking at lectures and YouTube videos regarding the basics of what is assembly code and how to go from a parser output to produce assembly code in x86. We read through and rewrote the code generation code examples provided in toy compiler lectures and open source compilers which can be found in our [resources tab](https://github.com/olincollege/SoftSysCompilingCaterpillars/blob/main/resources/links.md). Please note that the open source compilers were written in various languages and gave us he opportunity to translate into C. Rewriting code allowed us to gain more insight on understanding the inner workings of assembly code generation and allowed us to design our assembly code syntax accordingly. 
 
 Since we had learned about static checkers in class, we did not require additional resources regarding this topic and we focused on developing the code directly. 
 
 The majority of the guidance for the general syntax was informed by code translations performed using [GodBolt.org](https://www.godbolt.org). Many test scripts were entered into the tool in C syntax. We analyzed the output of this tool to develop the general structures of different code structures such as if/else branches and while loops. We also used the tool to gain an understanding of how to declare our variables and constants and also how to begin and end the assembly file. We also relied on a [guide](https://www.cs.virginia.edu/~evans/cs216/guides/x86.html) from the University of Virginia to understand the available registers and basic commands.
 
 ### Stage 2 - Static Checker
-The purpose of a static checker is to detect and report any syntactic and
-semantic programming errors. Our static checker begins by traversing though the
-tree to make sure no variables are used before they are declared. If they are, there
-will be an error thrown. For every variable in an
-expression, the static checker determines if it exists in a hash map, it if
-does, it continues. If the expression is part of a statement, after checking the
-expression, the variable the expression is being assigned to is added to the
-hash map. If it is already present there, it does nothing. Every number in an
+The purpose of a static checker is to detect and report any syntactic and semantic programming errors. Our static checker begins by traversing though the
+tree to make sure no variables are used before they are declared. If they are, there will be an error thrown. For every variable in an
+expression, the static checker determines if it exists in a hash map, it if does, it continues. If the expression is part of a statement, after checking the expression, the variable the expression is being assigned to is added to the hash map. If it is already present there, it does nothing. Every number in an
 expression is added to the value list.
 
 The checker determines if the left hand side (LHS) and right hand side (RHS) expressions are valid in a conditional. Validating all conditionals in the if and else statements allows the static checker to validate a branch. Validating the conditionals for a while loop allows for validation of while loop functionality. 
@@ -196,16 +191,4 @@ I came into this project with a basic understanding of how assembly instructions
 
 ### Abitamim
 
- I came into the project knowing nothing about assembly. I learned a lot about
- how various operations, such as loops, branches, and arithmetics, are created
- in assembly. I also became far more proficient at using more advanced data
- structures by implementing the static checker with glib, along with the code
- generation for the constants and variables. I initally wanted to build an
- iterator for the tree, which would have helped me learn how to best structure
- code generation. However, this ended up being more complicated than expected,
- since there could be an unknown number of layers, which would have required
- building a stack, rather than using recursion and exploiting the stack provided
- by the OS. When the program finally generated assembly code, however, all the
- work we have done over the semester was validated and I was elated! I am happy
- with how this project has gone, and hope to learn how to build more
- sophisticated compilers in the future.
+ I came into the project knowing nothing about assembly. I learned a lot about how various operations, such as loops, branches, and arithmetics, are created in assembly. I also became far more proficient at using more advanced data structures by implementing the static checker with glib, along with the code generation for the constants and variables. I initally wanted to build an iterator for the tree, which would have helped me learn how to best structure code generation. However, this ended up being more complicated than expected, since there could be an unknown number of layers, which would have required building a stack, rather than using recursion and exploiting the stack provided by the OS. When the program finally generated assembly code, however, all the work we have done over the semester was validated and I was elated! I am happy with how this project has gone, and hope to learn how to build more sophisticated compilers in the future.
