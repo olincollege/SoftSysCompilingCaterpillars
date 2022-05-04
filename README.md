@@ -1,4 +1,4 @@
-# SoftSysCompilingCaterpillars
+# Comp-lexity: A Toy Compiler 
 
 ## How to Run
 
